@@ -1,4 +1,4 @@
-package org.sert2521.shooterbot2023.subsystems
+package org.sert2521.bunnybots2023.subsystems
 
 
 import com.ctre.phoenix.sensors.CANCoder
@@ -11,14 +11,11 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator
 import edu.wpi.first.math.geometry.*
 import edu.wpi.first.math.kinematics.*
 import edu.wpi.first.math.util.Units
-import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.MotorSafety
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj2.command.SubsystemBase
-import org.photonvision.PhotonCamera
-import org.photonvision.PhotonPoseEstimator
-import org.sert2521.shooterbot2023.*
-import org.sert2521.shooterbot2023.commands.JoystickDrive
+import org.sert2521.bunnybots2023.*
+import org.sert2521.bunnybots2023.commands.JoystickDrive
 //import org.sert2521.shooterbot2023.commands.JoystickDrive
 import kotlin.math.*
 
