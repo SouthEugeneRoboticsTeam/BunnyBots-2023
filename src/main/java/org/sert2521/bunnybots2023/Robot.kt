@@ -1,4 +1,4 @@
-package sert2521.bunnybots2023
+package org.sert2521.bunnybots2023
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command

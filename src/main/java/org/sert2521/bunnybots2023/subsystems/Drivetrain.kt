@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import org.sert2521.bunnybots2023.*
 import org.sert2521.bunnybots2023.commands.JoystickDrive
-//import org.sert2521.shooterbot2023.commands.JoystickDrive
 import kotlin.math.*
 
 class SwerveModule(private val powerMotor: CANSparkMax,

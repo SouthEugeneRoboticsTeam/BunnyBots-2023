@@ -1,4 +1,4 @@
-package sert2521.bunnybots2023.commands
+package org.sert2521.bunnybots2023.commands
 
 import edu.wpi.first.math.geometry.Translation3d
 import edu.wpi.first.wpilibj.Timer

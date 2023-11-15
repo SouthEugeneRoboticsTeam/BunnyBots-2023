@@ -1,7 +1,7 @@
-package sert2521.bunnybots2023.commands
+package org.sert2521.bunnybots2023.commands
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds
-import sert2521.bunnybots2023.subsystems.Drivetrain
+import org.sert2521.bunnybots2023.subsystems.Drivetrain
 import org.sert2521.bunnybots2023.Input
 
 class JoystickDrive(private val fieldOrientated: Boolean) : JoystickCommand() {
