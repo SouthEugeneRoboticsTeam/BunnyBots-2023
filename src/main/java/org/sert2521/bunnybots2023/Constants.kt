@@ -10,6 +10,8 @@ package org.sert2521.bunnybots2023
 object PhysicalConstants {
 
 }
-
+object ElectronicIds {
+    const val BeltMotorId = -1
+}
 
 
