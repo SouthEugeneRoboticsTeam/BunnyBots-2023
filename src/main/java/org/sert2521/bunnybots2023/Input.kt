@@ -3,16 +3,11 @@ package org.sert2521.bunnybots2023
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
-import com.pathplanner.lib.auto.SwerveAutoBuilder
-import com.pathplanner.lib.util.PIDConstants
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import edu.wpi.first.wpilibj2.command.*
-import sert2521.bunnybots2023.subsystems.Drivetrain
-import org.sert2521.bunnybots2023.commands.*
 
 object Input {
     // Replace with constants
@@ -20,7 +15,7 @@ object Input {
     private val gunnerController = Joystick(1)
 
     private val resetAngle = JoystickButton(driverController, 4)
-    private val slowButton = JoystickButton(driverController, 5)
+    private val secondarySpeedButton = JoystickButton(driverController, 5)
     //private val coneAlignButton = JoystickButton(driverController, 6)
     //private val coneAlignConeRot = JoystickButton(driverController, 1)
 
@@ -39,6 +34,7 @@ object Input {
 
     // Has to do this function thing so the robot can do andThen(auto) more than once
     private val autoChooser = SendableChooser<() -> Command?>()
+    /*
     private val autoBuilder = SwerveAutoBuilder(
         Drivetrain::getPose,
         { Drivetrain.setNewPose(it); Drivetrain.setNewVisionPose(it) },
@@ -49,23 +45,25 @@ object Input {
         true,
         Drivetrain
     )
+    */
 
 
-
-    var slowMode = false
+    var secondarySpeedMode = false
 
     init {
-        // Put these strings in constants maybe
+        /*
         autoChooser.setDefaultOption("Nothing") { null }
         for (path in ConfigConstants.paths) {
             autoChooser.addOption(path.first) { autoBuilder.fullAuto(path.second) }
         }
 
+         */
 
 
-        SmartDashboard.putData("Auto Chooser", autoChooser)
 
-        slowButton.onTrue(InstantCommand({ slowMode = !slowMode }))
+        //SmartDashboard.putData("Auto Chooser", autoChooser)
+
+        secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
     }
 
     fun getAuto(): Command? {
@@ -82,8 +80,8 @@ object Input {
     }
 
     // Rename fast stuff because it actually slows it
-    fun getFast(): Double {
-        return if (!slowMode) {
+    fun getSecondarySpeed(): Double {
+        return if (!secondarySpeedMode) {
             driverController.leftTriggerAxis
         } else {
             1.0
