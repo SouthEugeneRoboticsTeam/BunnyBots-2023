@@ -11,20 +11,19 @@ object BeltSubsystem : SubsystemBase() {
 
     private var currentSpeed = 0.0
 
-    fun setMotor(speed:Double){
+    fun setMotor(speed: Double) {
         motor.set(speed)
         currentSpeed = speed
     }
 
-    fun stopMotor(){
+    fun stopMotor() {
         motor.stopMotor()
         currentSpeed = 0.0
     }
 
-    fun getSpeed() : Double {
+    fun getSpeed(): Double {
         return encoder.velocity //returns RPMs not -1.0 to 1.0
 
     }
 
 }
-//why am i commiting with the wrong account
