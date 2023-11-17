@@ -304,9 +304,11 @@ object Drivetrain : SubsystemBase() {
         poseEstimator.setVisionMeasurementStdDevs(TunedConstants.defaultVisionDeviations)
     }
 
-    fun setVisionAlignDeviations() {
+    /*fun setVisionAlignDeviations() {
         poseEstimator.setVisionMeasurementStdDevs(TunedConstants.alignVisionDeviations)
     }
+
+     */
 
     /*
     fun visionSeeingThings(): Boolean {
