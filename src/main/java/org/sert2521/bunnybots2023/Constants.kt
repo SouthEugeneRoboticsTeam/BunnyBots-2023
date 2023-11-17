@@ -10,6 +10,9 @@ package org.sert2521.bunnybots2023
 object PhysicalConstants {
 
 }
+object ElectronicIDs{
+    const val outtakemotorID = 0
 
+}
 
 
