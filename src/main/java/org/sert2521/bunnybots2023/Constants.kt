@@ -18,7 +18,10 @@ import kotlin.math.PI
 class SwerveModuleData(val position: Translation2d, val powerMotorID: Int, val angleMotorID: Int, val angleEncoderID: Int, val angleOffset: Double, val inverted: Boolean)
 
 object PhysicalConstants {
+    //Measurement is when robot is 28 inches without bumpers
     const val halfSideLength = 0.286378246381
+
+
     const val powerEncoderMultiplierPosition = PI * 0.1016 / 8.14
     const val powerEncoderMultiplierVelocity = powerEncoderMultiplierPosition / 60.0
     const val angleEncoderMultiplier = 0.01745329251
@@ -58,6 +61,7 @@ object ConfigConstants {
     const val rotSpeed = 3.5
     const val rotSecondarySpeed = 2.75
 
+    //Acceleration of drivetrain
     const val driveSpeedupChangeSpeed = 6.5
     const val driveSlowdownChangeSpeed = 36.0
 }
