@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.sert2521.bunnybots2023.ElectronicIDs
 
 object Claw : SubsystemBase() {
-    private val clawMotor = CANSparkMax(ElectronicIDs.clawMotor, CANSparkMaxLowLevel.MotorType.kBrushless)
+    private val clawMotor = CANSparkMax(ElectronicIDs.clawMotorId, CANSparkMaxLowLevel.MotorType.kBrushless)
 
     init {
         clawMotor.idleMode = CANSparkMax.IdleMode.kBrake
