@@ -71,6 +71,7 @@ class SwerveModule(private val powerMotor: CANSparkMax,
         }
     }
 
+
     // Should be called in periodic
     fun updateState() {
         val angle = getAngle()
@@ -185,7 +186,7 @@ object Drivetrain : SubsystemBase() {
         for (camData in ElectronicIDs.camData) {
             val cam = PhotonCamera(camData.first)
             camsList.add(cam)
-            // Field gets updated before run so it can be null
+            // Field gets updated before running so that it can be null
             photonPoseEstimatorsList.add(PhotonPoseEstimator(PhysicalConstants.field, PhotonPoseEstimator.PoseStrategy.AVERAGE_BEST_TARGETS, cam, camData.second))
         }
 
