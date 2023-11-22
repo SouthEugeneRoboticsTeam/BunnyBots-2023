@@ -43,6 +43,8 @@ object Input {
         }
          */
         secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
+
+
     }
 
     fun getAuto(): Command? {
