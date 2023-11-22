@@ -46,6 +46,10 @@ object TunedConstants {
     const val swerveAngleP = 0.5
     const val swerveAngleI = 0.0
     const val swerveAngleD = 0.0
+
+    const val wristP = 0.0
+    const val wristI = 0.0
+    const val wristD = 0.0
 }
 
 object ConfigConstants {
