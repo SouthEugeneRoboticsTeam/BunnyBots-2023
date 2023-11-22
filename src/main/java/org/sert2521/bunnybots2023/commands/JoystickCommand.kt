@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj2.command.CommandBase
 import org.sert2521.bunnybots2023.ConfigConstants
 import org.sert2521.bunnybots2023.Input
-import org.sert2521.bunnybots2023.
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -30,7 +29,8 @@ abstract class JoystickCommand : CommandBase() {
         val diffTime = currentTime - prevTime
         prevTime = currentTime
 
-        val fast = Input.getFast()
+        //A variable meaning how close to the secondary speed it should get (as a trigger input)
+        val secondaryMultiplyer = Input.getSecondarySpeed()
         var currX = Input.getX()
         var currY = Input.getY()
 
@@ -47,7 +47,7 @@ abstract class JoystickCommand : CommandBase() {
         }
 
         // Converts the x and y input into m/s so the rate limiters apply in m/s
-        val trueSpeed = abs(ConfigConstants.driveSpeed - (ConfigConstants.driveSpeedup * fast))
+        val trueSpeed = abs(ConfigConstants.driveSpeed - (ConfigConstants.driveSpeed - ConfigConstants.driveSecondarySpeed) * secondaryMultiplyer)
         currX *= trueSpeed
         currY *= trueSpeed
 
@@ -84,7 +84,7 @@ abstract class JoystickCommand : CommandBase() {
         if (abs(rot) <= ConfigConstants.rotDeadband) {
             rot = 0.0
         }
-        rot *= (ConfigConstants.rotSpeed - (ConfigConstants.rotSpeedup * fast))
+        rot *= (ConfigConstants.rotSpeed - (ConfigConstants.rotSecondarySpeed * secondaryMultiplyer))
 
         return Translation3d(x, y, rot)
     }
