@@ -1,10 +1,14 @@
 package org.sert2521.bunnybots2023.commands
 
+import edu.wpi.first.math.controller.PIDController
+import edu.wpi.first.math.controller.SimpleMotorFeedforward
 import edu.wpi.first.wpilibj2.command.CommandBase
+import org.sert2521.bunnybots2023.TunedConstants
 
-class SetWrist : CommandBase() {
+class RunWrist : CommandBase() {
 
-
+    private val powerPID = PIDController(TunedConstants.wristP, TunedConstants.wristI, TunedConstants.wristD)
+    //private val feedforward = MotorFeed
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
         addRequirements()

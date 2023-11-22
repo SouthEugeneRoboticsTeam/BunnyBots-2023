@@ -50,6 +50,11 @@ object TunedConstants {
     const val wristP = 0.0
     const val wristI = 0.0
     const val wristD = 0.0
+
+    const val wristS = 0.0
+    const val wristG = 0.0
+    const val wristV = 0.0
+    const val wristA = 0.0
 }
 
 object ConfigConstants {
@@ -79,6 +84,11 @@ object ElectronicIDs {
     )
 
     const val wristMotor = -1
+}
+
+object RuntimeConstants {
+    var wristSetPoint = 0.0
+
 }
 
 
