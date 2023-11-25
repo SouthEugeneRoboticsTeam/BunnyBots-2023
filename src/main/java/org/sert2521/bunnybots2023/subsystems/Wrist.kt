@@ -10,19 +10,16 @@ object Wrist : SubsystemBase() {
 
  val encoder = motor.encoder
  val motorSpeed = 0.0
- var currSpeed = 0.0
 
  fun setSpeed(speed:Double){
   motor.set(speed)
-  currSpeed = speed
  }
 
- fun getSpeed() :Double{
-  return currSpeed
+ fun setVoltage(voltage:Double){
+  motor.setVoltage(voltage)
  }
 
  fun stop(){
   motor.stopMotor()
-  currSpeed = 0.0
  }
 }

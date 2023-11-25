@@ -25,6 +25,8 @@ object PhysicalConstants {
     const val powerEncoderMultiplierPosition = PI * 0.1016 / 8.14
     const val powerEncoderMultiplierVelocity = powerEncoderMultiplierPosition / 60.0
     const val angleEncoderMultiplier = 0.01745329251
+
+    const val wristEncoderMultiplier = 0.0
 }
 
 object TunedConstants {
@@ -84,6 +86,7 @@ object ElectronicIDs {
     )
 
     const val wristMotor = -1
+    const val wristTrueEncoder = -1
 }
 
 object RuntimeConstants {
