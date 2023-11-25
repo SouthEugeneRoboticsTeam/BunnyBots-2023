@@ -31,7 +31,14 @@ class RunWrist : CommandBase() {
     override fun initialize() {}
 
     override fun execute() {
-        Wrist.setVoltage(motorPID.calculate(trueEncoder.distance*PhysicalConstants.wristEncoderMultiplier, RuntimeConstants.wristSetPoint)+feedforward.calculate(RuntimeConstants.wristSetPoint, 0.0))
+        val trueEncoderDistance = (trueEncoder.distance*PhysicalConstants.wristEncoderMultiplier)+PhysicalConstants.wristEncoderTransform
+
+        if (RuntimeConstants.wristSetPoint <= PhysicalConstants.wristSetpointMin){
+            RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMin
+        } else if (RuntimeConstants.wristSetPoint >= PhysicalConstants.wristSetpointMax){
+            RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMax
+        }
+        Wrist.setVoltage(motorPID.calculate(trueEncoderDistance, RuntimeConstants.wristSetPoint)+feedforward.calculate(RuntimeConstants.wristSetPoint, 0.0))
     }
 
     override fun isFinished(): Boolean {

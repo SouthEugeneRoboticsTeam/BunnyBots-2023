@@ -27,10 +27,14 @@ object PhysicalConstants {
     const val angleEncoderMultiplier = 0.01745329251
 
     const val wristEncoderMultiplier = 0.0
+    const val wristEncoderTransform = 0.0
 
-    const val wristSetpointGround = PI/2.0
+    const val wristSetpointGround = -PI/16.0
     const val wristSetpointTote = PI/4.0
-    const val wristSetpointRest = 0.0
+    const val wristSetpointRest = PI/2.0
+
+    const val wristSetpointMin = -PI/16
+    const val wristSetpointMax = PI/2.0
 
 }
 
@@ -88,10 +92,10 @@ object ConfigConstants {
 
 object ElectronicIDs {
     val swerveModuleData = listOf(
-        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 4, 5, 14, -2.27 + PI / 2 + 4.62 + 1.54 - PI / 2, true),
-        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 1, 2, 16, -1.63 - PI + 4.79 + 1.61 - PI / 2, true),
-        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 12, 11, 13, -0.76 + PI / 2 - 1.43 + 1.57 - PI / 2, true),
-        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 7, 8, 15, -4.10 - PI / 2 + 5.12 + 1.75 - PI / 2, true)
+        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 13, 3, 17, -2.27 + PI / 2 + 4.62 + 1.54 - PI / 2, true), //Front Right
+        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, -1.63 - PI + 4.79 + 1.61 - PI / 2, true), //Back Right
+        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 12, 7, 15, -0.76 + PI / 2 - 1.43 + 1.57 - PI / 2, true), //Back Left
+        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 11, 8, 14, -4.10 - PI / 2 + 5.12 + 1.75 - PI / 2, true) //Front Left
     )
 
     const val wristMotor = -1
