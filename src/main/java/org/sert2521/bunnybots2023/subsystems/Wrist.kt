@@ -11,6 +11,9 @@ object Wrist : SubsystemBase() {
  val encoder = motor.encoder
  val motorSpeed = 0.0
 
+ init{
+  motor.setSmartCurrentLimit(10)
+ }
  fun setSpeed(speed:Double){
   motor.set(speed)
  }
