@@ -12,6 +12,14 @@ object Wrist : SubsystemBase() {
  val motorSpeed = 0.0
 
  fun setSpeed(speed:Double){
-  motor
+  motor.set(speed)
+ }
+
+ fun setVoltage(voltage:Double){
+  motor.setVoltage(voltage)
+ }
+
+ fun stop(){
+  motor.stopMotor()
  }
 }
