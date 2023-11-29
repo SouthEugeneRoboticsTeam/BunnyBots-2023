@@ -73,6 +73,8 @@ object ElectronicIDs {
         SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 12, 11, 13, -0.76 + PI / 2 - 1.43 + 1.57 - PI / 2, true),
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 7, 8, 15, -4.10 - PI / 2 + 5.12 + 1.75 - PI / 2, true)
     )
+
+    const val wristMotor = -1
 }
 object ElectronicIds {
     const val BeltMotorId = -1
