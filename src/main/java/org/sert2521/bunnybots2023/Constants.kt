@@ -105,6 +105,7 @@ object ElectronicIDs {
 object RuntimeConstants {
     var wristSetPoint = 0.0
 
+    var disableRightStick = false
 }
 
 

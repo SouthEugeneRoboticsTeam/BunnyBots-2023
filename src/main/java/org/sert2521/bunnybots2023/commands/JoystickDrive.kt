@@ -12,6 +12,7 @@ class JoystickDrive(private val fieldOrientated: Boolean) : JoystickCommand() {
 
     override fun execute() {
         val joystickData = readJoystick()
+
         if (joystickData.x == 0.0 && joystickData.y == 0.0 && joystickData.z == 0.0) {
             if (Input.getBrakePos()) {
                 Drivetrain.enterBrakePos()
