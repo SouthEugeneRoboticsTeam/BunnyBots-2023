@@ -7,12 +7,38 @@ import org.photonvision.targeting.PhotonTrackedTarget
 
 object Vision : SubsystemBase() {
     val cam = PhotonCamera("Camera")
-    var result:PhotonPipelineResult? = null
-    var targets:List<PhotonTrackedTarget>? = null
+    var result:PhotonPipelineResult = cam.latestResult
+
+    //goal is to see ALL reflective tape, or at least the bigger ones
+    var targets:List<PhotonTrackedTarget> = result.targets
+
+    //bestTarget means the biggest tape on the screen, so therefore the closest
+    var bestTarget:PhotonTrackedTarget? = null
 
     override fun periodic(){
         result = cam.latestResult
-        targets = result.getTargets()
+        targets = result.targets
+
+        //If targets is empty, then bestTarget is set to null
+        if (!targets.isEmpty()){
+            for (target in targets){
+                //If there is no target yet, then this one is obviously the biggest
+                if (bestTarget == null){
+                    bestTarget = target
+
+                //Else, if the target is bigger than the biggest yet, it becomes the new biggest
+                } else if (target.area >= target.area){
+                    bestTarget = target
+                }
+                //Otherwise target is smaller than bestTarget and so is discarded
+            }
+
+        } else {
+            bestTarget = null
+        }
     }
 
+    fun getBestTarget():PhotonTrackedTarget?{
+        return bestTarget
+    }
 }
