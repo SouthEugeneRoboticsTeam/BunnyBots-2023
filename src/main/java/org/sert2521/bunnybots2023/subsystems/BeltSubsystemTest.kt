@@ -14,11 +14,11 @@ class BeltSubsystemTest {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     fun stopMotor() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     fun getSpeed() {
         val beltSubsystemGetSpeed = BeltSubsystem
         assertEquals(0.0,beltSubsystemGetSpeed.getSpeed())

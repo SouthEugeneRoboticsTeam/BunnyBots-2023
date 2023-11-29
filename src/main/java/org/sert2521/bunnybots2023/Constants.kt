@@ -76,6 +76,7 @@ object ElectronicIDs {
 }
 object ElectronicIds {
     const val BeltMotorId = -1
+    const val KickerMotorId = -1
 }
 
 
