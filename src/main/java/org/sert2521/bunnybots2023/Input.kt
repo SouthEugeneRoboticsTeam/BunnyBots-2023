@@ -1,5 +1,6 @@
 package org.sert2521.bunnybots2023
 
+import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
@@ -9,13 +10,14 @@ import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.*
 import org.sert2521.bunnybots2023.commands.SlideWristSetpoint
+import org.sert2521.bunnybots2023.subsystems.Drivetrain
 
 object Input {
     private val driverController = XboxController(0)
     private val gunnerController = Joystick(1)
 
     private val resetAngle = JoystickButton(driverController, 4)
-    private val secondarySpeedButton = JoystickButton(driverController, 5)
+    //private val secondarySpeedButton = JoystickButton(driverController, 5)
 
     private val wristGround = JoystickButton(gunnerController, 1)
     private val wristTote = JoystickButton(gunnerController, 2)
@@ -48,7 +50,7 @@ object Input {
             autoChooser.addOption(path.first) { autoBuilder.fullAuto(path.second) }
         }
          */
-        secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
+        //secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
 
         wristGround.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround}))
         wristTote.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointTote}))
@@ -56,6 +58,10 @@ object Input {
 
         wristUp.whileTrue(SlideWristSetpoint(-ConfigConstants.wristSlideSpeed))
         wristDown.whileTrue(SlideWristSetpoint(ConfigConstants.wristSlideSpeed))
+
+        resetAngle.onTrue(InstantCommand({
+            Drivetrain.setNewPose(Pose2d()) })
+        )
     }
 
     fun getAuto(): Command? {

@@ -68,6 +68,10 @@ object TunedConstants {
     const val wristG = 0.31
     const val wristV = 1.30
     const val wristA = 0.01
+
+    const val visionP = 0.01
+
+    const val visionSusness = 2.0
 }
 
 object ConfigConstants {
@@ -88,6 +92,8 @@ object ConfigConstants {
     const val driveSlowdownChangeSpeed = 36.0
 
     const val wristSlideSpeed = PI/200
+
+    const val visionCenter = 0.0
 }
 
 object ElectronicIDs {
@@ -106,6 +112,7 @@ object RuntimeConstants {
     var wristSetPoint = 0.0
 
     var disableRightStick = false
+    var visionRightStick = 0.0
 }
 
 

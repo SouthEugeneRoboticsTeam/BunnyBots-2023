@@ -3,6 +3,7 @@ package org.sert2521.bunnybots2023.commands
 import edu.wpi.first.math.kinematics.ChassisSpeeds
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
 import org.sert2521.bunnybots2023.Input
+import org.sert2521.bunnybots2023.RuntimeConstants
 
 class JoystickDrive(private val fieldOrientated: Boolean) : JoystickCommand() {
     init {
@@ -20,10 +21,14 @@ class JoystickDrive(private val fieldOrientated: Boolean) : JoystickCommand() {
                 Drivetrain.stop()
             }
         } else {
-            if (fieldOrientated) {
+            if (fieldOrientated && !RuntimeConstants.disableRightStick) {
                 Drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(joystickData.x, joystickData.y, joystickData.z, Drivetrain.getPose().rotation))
-            } else {
+            } else if (!fieldOrientated && !RuntimeConstants.disableRightStick) {
                 Drivetrain.drive(ChassisSpeeds(joystickData.x, joystickData.y, joystickData.z))
+            }else if (fieldOrientated) {
+                Drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(joystickData.x, joystickData.y, RuntimeConstants.visionRightStick, Drivetrain.getPose().rotation))
+            } else {
+                Drivetrain.drive(ChassisSpeeds(joystickData.x, joystickData.y, RuntimeConstants.visionRightStick))
             }
         }
     }

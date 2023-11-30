@@ -62,4 +62,8 @@ object Vision : SubsystemBase() {
         }
         return (minX!!+maxX!!)/2.0
     }
+
+    fun getYaw():Double{
+        return bestTarget!!.yaw
+    }
 }
