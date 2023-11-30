@@ -11,7 +11,7 @@ object BeltSubsystem : SubsystemBase() {
     /*
     modes:
     - kicker slow reverse
-    - kicker fast forward
+    - kicker fast forward: kick
     - belt slow
     - belt fast
      */
@@ -52,25 +52,6 @@ object BeltSubsystem : SubsystemBase() {
 
 
     }
-
-    fun kickerKick() {
-        // Needs timing to be calibrated
-        kickerMotor.set(-0.7)
-        Thread.sleep(700) // 700 milliseconds
-        kickerSpeedSlow()
-    }
-    private fun kickerSpeedSlow() {
-        kickerMotor.set(0.1)
-    }
-
-    private fun beltSpeedSlow() {
-        beltMotor.set(0.1)
-    }
-
-    private fun beltSpeedFast() {
-        beltMotor.set(0.7)
-    }
-
 
     private fun getSpeedBeltRPM(): Double {
         val ratedSpeedRPM = 5767
