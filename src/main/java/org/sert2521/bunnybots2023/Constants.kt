@@ -67,7 +67,7 @@ object ConfigConstants {
 }
 
 object ElectronicIDs {
-    const val clawMotorId = 9
+    const val intakeMotorId = 9
     val swerveModuleData = listOf(
         SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 4, 5, 14, -2.27 + PI / 2 + 4.62 + 1.54 - PI / 2, true),
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 1, 2, 16, -1.63 - PI + 4.79 + 1.61 - PI / 2, true),
