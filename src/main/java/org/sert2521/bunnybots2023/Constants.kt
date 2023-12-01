@@ -45,7 +45,7 @@ object TunedConstants {
 
 
     //Feedforward constants
-    const val swervePowerS = 0.0
+    const val swervePowerS = 0.5
     const val swervePowerV = 0.0
     const val swervePowerA = 0.0
 
