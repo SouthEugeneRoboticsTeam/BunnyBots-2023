@@ -3,6 +3,9 @@ package org.sert2521.bunnybots2023
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
+import org.sert2521.bunnybots2023.commands.JoystickCommand
+import org.sert2521.bunnybots2023.commands.JoystickDrive
+import org.sert2521.bunnybots2023.subsystems.Drivetrain
 
 
 /**
@@ -17,29 +20,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler
  */
 object Robot : TimedRobot()
 {
-    /**
-     * The autonomous command to run. While a default value is set here,
-     * the [autonomousInit] method will set it to the value selected in
-     *the  AutoChooser on the dashboard.
-     */
+    init {
+        Input
+        Drivetrain
 
-
-    /**
-     * This method is run when the robot is first started up and should be used for any
-     * initialization code.
-     */
-    override fun robotInit()
-    {
 
     }
 
-    /**
-     * This method is called every 20 ms, no matter the mode. Use this for items like
-     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-     *
-     * This runs after the mode specific periodic methods, but before LiveWindow and
-     * SmartDashboard integrated updating.
-     */
     override fun robotPeriodic()
     {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -52,7 +39,7 @@ object Robot : TimedRobot()
     /** This method is called once each time the robot enters Disabled mode.  */
     override fun disabledInit()
     {
-
+        CommandScheduler.getInstance().cancelAll()
     }
 
     override fun disabledPeriodic()

@@ -17,12 +17,15 @@ object Input {
     private val resetAngle = JoystickButton(driverController, 4)
     private val secondarySpeedButton = JoystickButton(driverController, 5)
 
+    /*
     private val wristGround = JoystickButton(gunnerController, 1)
     private val wristTote = JoystickButton(gunnerController, 2)
     private val wristRest = JoystickButton(gunnerController, 3)
 
     private val wristUp = JoystickButton(gunnerController, 4)
     private val wristDown = JoystickButton(gunnerController, 5)
+
+    */
 
     private val autoChooser = SendableChooser<() -> Command?>()
     /*
@@ -49,13 +52,15 @@ object Input {
         }
          */
         secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
-
+        /*
         wristGround.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround}))
         wristTote.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointTote}))
         wristRest.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointRest}))
 
         wristUp.whileTrue(SlideWristSetpoint(-ConfigConstants.wristSlideSpeed))
         wristDown.whileTrue(SlideWristSetpoint(ConfigConstants.wristSlideSpeed))
+
+         */
     }
 
     fun getAuto(): Command? {
