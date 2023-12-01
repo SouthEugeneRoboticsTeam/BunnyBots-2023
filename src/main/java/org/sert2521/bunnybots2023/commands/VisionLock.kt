@@ -18,15 +18,12 @@ class VisionLock : CommandBase() {
     }
 
     override fun execute() {
-        if (Vision.hasTarget()){
-            visionLostTargetCycles = 0
+        when (Vision.hasTarget()){
+            //if true then reset cycles
+            true -> visionLostTargetCycles = 0
 
-        } else {
-            visionLostTargetCycles += 1
-        }
-
-        if (visionLostTargetCycles >= 10){
-            this.cancel()
+            //otherwise it increments its lost cycles
+            false -> visionLostTargetCycles += 1
         }
 
         if (Vision.hasTarget() && abs(Vision.getYaw())>=TunedConstants.visionSusness){
@@ -34,11 +31,16 @@ class VisionLock : CommandBase() {
         } else {
             RuntimeConstants.visionRightStick = 0.0
         }
+
+        //If vision lost for more than a 1/5 seconds, then it panic cancels
+        if (visionLostTargetCycles >= 10){
+            this.cancel()
+        }
     }
 
     override fun isFinished(): Boolean {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return false
+        return visionLostTargetCycles >= 10
     }
 
     override fun end(interrupted: Boolean) {}

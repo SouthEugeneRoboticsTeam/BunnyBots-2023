@@ -1,18 +1,19 @@
 package org.sert2521.bunnybots2023.subsystems
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase
 import org.photonvision.PhotonCamera
 import org.photonvision.targeting.PhotonPipelineResult
 import org.photonvision.targeting.PhotonTrackedTarget
 
 object Vision : SubsystemBase() {
-    val cam = PhotonCamera("Camera")
+    //Maddie said to call it Fredrick
+    val cam = PhotonCamera("Fredrick")
     var result:PhotonPipelineResult = cam.latestResult
 
     //goal is to see ALL reflective tape, or at least the bigger ones
     var targets:List<PhotonTrackedTarget> = result.targets
 
-    //bestTarget means the biggest tape on the screen, so therefore the closest
+    //bestTarget means the biggest tape on the screen, so the closest
     var bestTarget:PhotonTrackedTarget? = null
 
     override fun periodic(){
@@ -39,7 +40,7 @@ object Vision : SubsystemBase() {
     }
 
     fun hasTarget():Boolean{
-        return bestTarget == null
+        return bestTarget != null
     }
 
     fun getBestTarget():PhotonTrackedTarget{
