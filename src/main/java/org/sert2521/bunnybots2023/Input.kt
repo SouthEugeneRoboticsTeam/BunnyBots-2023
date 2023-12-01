@@ -16,23 +16,7 @@ object Input {
 
     private val resetAngle = JoystickButton(driverController, 4)
     private val secondarySpeedButton = JoystickButton(driverController, 5)
-    //private val coneAlignButton = JoystickButton(driverController, 6)
-    //private val coneAlignConeRot = JoystickButton(driverController, 1)
 
-    private val outtake = JoystickButton(gunnerController, 13).or(JoystickButton(driverController, 6))
-    private val intake = JoystickButton(gunnerController, 14)
-
-    private val liftDrive = JoystickButton(gunnerController, 5)
-    private val liftConeHigh = JoystickButton(gunnerController, 6)
-    private val liftCubeHigh = JoystickButton(gunnerController, 7)
-    private val liftMid = JoystickButton(gunnerController, 8)
-    private val liftLow = JoystickButton(gunnerController, 9)
-    private val liftIntakeTippedCone = JoystickButton(gunnerController, 10)
-    private val liftIntakeCube = JoystickButton(gunnerController, 16)
-    private val liftIntakeCone = JoystickButton(gunnerController, 15)
-    private val liftSingleSubstation = JoystickButton(gunnerController, 11)
-
-    // Has to do this function thing so the robot can do andThen(auto) more than once
     private val autoChooser = SendableChooser<() -> Command?>()
     /*
     private val autoBuilder = SwerveAutoBuilder(
