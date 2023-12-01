@@ -21,14 +21,23 @@ object BeltSubsystem : SubsystemBase() {
     private val kickerMotor = CANSparkMax(ElectronicIds.KickerMotorId, CANSparkMaxLowLevel.MotorType.kBrushless) // ID = -1
     private val kickerEncoder = kickerMotor.encoder
 
-    private var currentSpeed = 0.0
+    var beltSpeed = 0.0
+    var kickerSpeed = 0.0
+
+    var time = 0
 
     fun setBeltSpeed(speed: Double) {
         beltMotor.set(speed)
+        beltSpeed = speed
     }
     fun setkickerSpeed(speed: Double) {
         kickerMotor.set(speed)
+        kickerSpeed = speed
     }
+
+
+
+
     private fun setBeltSpeedRPM(rpm: Double) {
         val ratedSpeedRPM = 5676
         val speedPerUnit = rpm / ratedSpeedRPM

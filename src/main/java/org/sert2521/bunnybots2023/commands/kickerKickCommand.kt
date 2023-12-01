@@ -3,7 +3,7 @@ package org.sert2521.bunnybots2023.commands
 import edu.wpi.first.wpilibj2.command.CommandBase
 import org.sert2521.bunnybots2023.subsystems.BeltSubsystem
 
-class IndexerIdleCommand : CommandBase() {
+class kickerKickCommand : CommandBase() {
 
 
     init {
@@ -15,8 +15,7 @@ class IndexerIdleCommand : CommandBase() {
      * The initial subroutine of a command.  Called once when the command is initially scheduled.
      */
     override fun initialize() {
-        BeltSubsystem.setBeltSpeed(0.1)
-        BeltSubsystem.setkickerSpeed(0.1)
+        BeltSubsystem.setkickerSpeed(0.7)
 
     }
 
@@ -25,8 +24,7 @@ class IndexerIdleCommand : CommandBase() {
      * (That is, it is called repeatedly until [isFinished] returns true.)
      */
     override fun execute() {
-        BeltSubsystem.setBeltSpeed(0.1)
-        BeltSubsystem.setkickerSpeed(0.1)
+        BeltSubsystem.time++
     }
 
     /**
@@ -42,8 +40,7 @@ class IndexerIdleCommand : CommandBase() {
      * @return whether this command has finished.
      */
     override fun isFinished(): Boolean {
-        return !(BeltSubsystem.beltSpeed != 0.1 && BeltSubsystem.kickerSpeed != 0.1) // idk if this is proper
-
+        return false //
     }
 
     /**
