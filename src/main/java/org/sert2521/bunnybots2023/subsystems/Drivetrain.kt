@@ -131,11 +131,8 @@ class SwerveModule(private val powerMotor: TalonFX,
 object Drivetrain : SubsystemBase() {
     private val imu = AHRS()
 
-    //private val cams: Array<PhotonCamera>
-    //private val photonPoseEstimators: Array<PhotonPoseEstimator>
-
     private val kinematics: SwerveDriveKinematics
-    private var modules: Array<SwerveModule>
+    var modules: Array<SwerveModule>
     private val odometry: SwerveDriveOdometry
     private val poseEstimator: SwerveDrivePoseEstimator
 
@@ -158,7 +155,10 @@ object Drivetrain : SubsystemBase() {
 
         // Maybe the module should create the motors
         for (moduleData in ElectronicIDs.swerveModuleData) {
-            val powerMotor = TalonFX(moduleData.powerMotorID)
+
+            //My co-lead's fault
+            val powerMotor = TalonFX(moduleData.powerMotorID, "bILLYbOBjOE")
+
             val angleMotor = CANSparkMax(moduleData.angleMotorID, CANSparkMaxLowLevel.MotorType.kBrushless)
 
             modulePositions.add(moduleData.position)
@@ -182,31 +182,11 @@ object Drivetrain : SubsystemBase() {
         odometry = SwerveDriveOdometry(kinematics, -imu.rotation2d, positionsArray, Pose2d())
         poseEstimator = SwerveDrivePoseEstimator(kinematics, -imu.rotation2d, positionsArray, Pose2d(), TunedConstants.encoderDeviations, TunedConstants.defaultVisionDeviations)
 
-        /*val camsList = mutableListOf<PhotonCamera>()
-        val photonPoseEstimatorsList = mutableListOf<PhotonPoseEstimator>()
-        for (camData in ElectronicIDs.camData) {
-            val cam = PhotonCamera(camData.first)
-            camsList.add(cam)
-            // Field gets updated before running so that it can be null
-            photonPoseEstimatorsList.add(PhotonPoseEstimator(PhysicalConstants.field, PhotonPoseEstimator.PoseStrategy.AVERAGE_BEST_TARGETS, cam, camData.second))
-        }
-
-        cams = camsList.toTypedArray()
-        photonPoseEstimators = photonPoseEstimatorsList.toTypedArray()
-
-         */
-
         Drivetrain.defaultCommand = JoystickDrive(true)
     }
 
-    // Fix this nonsense
     fun getPose(): Pose2d {
         return Pose2d(pose.y, pose.x, -pose.rotation)
-    }
-
-    // Fix this nonsense
-    fun getVisionPose(): Pose2d {
-        return Pose2d(visionPose.y, visionPose.x, -visionPose.rotation)
     }
 
     private fun createModule(powerMotor: TalonFX, angleMotor: CANSparkMax, moduleData: SwerveModuleData): SwerveModule {
@@ -214,7 +194,7 @@ object Drivetrain : SubsystemBase() {
             SimpleMotorFeedforward(TunedConstants.swervePowerS, TunedConstants.swervePowerV, TunedConstants.swervePowerA),
             PIDController(TunedConstants.swervePowerP, TunedConstants.swervePowerI, TunedConstants.swervePowerD),
             angleMotor,
-            CANCoder(moduleData.angleEncoderID),
+            CANCoder(moduleData.angleEncoderID, "bILLYbOBjOE"),
             moduleData.angleOffset,
             PIDController(TunedConstants.swerveAngleP, TunedConstants.swerveAngleI, TunedConstants.swerveAngleD),
             Rotation2d(atan2(moduleData.position.y, moduleData.position.x)),
@@ -236,24 +216,6 @@ object Drivetrain : SubsystemBase() {
         val positionsArray = positions.toTypedArray()
 
         pose = odometry.update(-imu.rotation2d, positionsArray)
-        visionPose = poseEstimator.update(-imu.rotation2d, positionsArray)
-        /*
-        for (photonPoseEstimator in photonPoseEstimators) {
-            val poseOutput = photonPoseEstimator.update()
-            if (poseOutput.isPresent) {
-                val currVisionPoseData = poseOutput.get()
-                val currVisionPose = currVisionPoseData.estimatedPose.toPose2d()
-
-                val color = Input.getColor()
-                if (color == DriverStation.Alliance.Blue) {
-                    poseEstimator.addVisionMeasurement(Pose2d(currVisionPose.y, currVisionPose.x, -currVisionPose.rotation), currVisionPoseData.timestampSeconds)
-                } else if (color == DriverStation.Alliance.Red) {
-                    poseEstimator.addVisionMeasurement(Pose2d(PhysicalConstants.fieldWidth - currVisionPose.y, PhysicalConstants.fieldLength - currVisionPose.x, Rotation2d(PI) - currVisionPose.rotation), currVisionPoseData.timestampSeconds)
-                }
-            }
-        }
-
-         */
 
         val currTime = Timer.getFPGATimestamp()
         val deltaTime = currTime - prevTime
@@ -286,47 +248,6 @@ object Drivetrain : SubsystemBase() {
 
         odometry.resetPosition(-imu.rotation2d, positionsArray, pose)
     }
-
-    fun setNewVisionPose(newPose: Pose2d) {
-        visionPose = Pose2d(newPose.y, newPose.x, -newPose.rotation)
-
-        val positions = mutableListOf<SwerveModulePosition>()
-
-        for (module in modules) {
-            module.updateState()
-            positions.add(module.position)
-        }
-
-        val positionsArray = positions.toTypedArray()
-
-        poseEstimator.resetPosition(-imu.rotation2d, positionsArray, visionPose)
-    }
-
-    fun setVisionStandardDeviations() {
-        poseEstimator.setVisionMeasurementStdDevs(TunedConstants.defaultVisionDeviations)
-    }
-
-    /*fun setVisionAlignDeviations() {
-        poseEstimator.setVisionMeasurementStdDevs(TunedConstants.alignVisionDeviations)
-    }
-
-     */
-
-    /*
-    fun visionSeeingThings(): Boolean {
-        val time = Timer.getFPGATimestamp()
-        if (camerasConnected()) {
-            return cams.any { time - it.latestResult.timestampSeconds < TunedConstants.visionTimeout }
-        }
-
-        return false
-    }
-
-    fun camerasConnected(): Boolean {
-        return cams.all { it.isConnected }
-    }
-
-     */
 
     fun getAccelSqr(): Double {
         return (imu.worldLinearAccelY.pow(2) + imu.worldLinearAccelX.pow(2)).toDouble()

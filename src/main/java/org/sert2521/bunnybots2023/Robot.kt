@@ -23,7 +23,7 @@ object Robot : TimedRobot()
     init {
         Input
         Drivetrain
-
+        Drivetrain.setMode(true)
 
     }
 

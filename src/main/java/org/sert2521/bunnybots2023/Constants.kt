@@ -45,8 +45,8 @@ object TunedConstants {
 
 
     //Feedforward constants
-    const val swervePowerS = 0.5
-    const val swervePowerV = 1.0
+    const val swervePowerS = 0.6
+    const val swervePowerV = 2.0
     const val swervePowerA = 0.0
 
     //PID loop constants
@@ -91,7 +91,7 @@ object ConfigConstants {
 }
 
 object ElectronicIDs {
-    const val clawMotorId = 0
+    const val clawMotorId = 9
     val swerveModuleData = listOf(
         SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 13, 3, 17, 0.0, false), //Front Right
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 0.0, false), //Back Right
