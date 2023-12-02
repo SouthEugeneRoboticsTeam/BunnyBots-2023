@@ -34,12 +34,12 @@ object TunedConstants {
 
 
     //Feedforward constants
-    const val swervePowerS = 0.3
-    const val swervePowerV = 3.0
+    const val swervePowerS = 0.5
+    const val swervePowerV = 0.0
     const val swervePowerA = 0.0
 
     //PID loop constants
-    const val swervePowerP = 2.0
+    const val swervePowerP = 0.0
     const val swervePowerI = 0.0
     const val swervePowerD = 0.0
 
