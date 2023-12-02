@@ -91,6 +91,7 @@ object ConfigConstants {
 }
 
 object ElectronicIDs {
+    const val clawMotorId = 0
     val swerveModuleData = listOf(
         SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 13, 3, 17, 0.0, false), //Front Right
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 0.0, false), //Back Right
