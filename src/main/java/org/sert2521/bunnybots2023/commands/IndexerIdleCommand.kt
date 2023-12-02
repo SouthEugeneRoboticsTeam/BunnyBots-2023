@@ -16,8 +16,7 @@ class IndexerIdleCommand : CommandBase() {
      */
     override fun initialize() {
         BeltSubsystem.setBeltSpeed(0.1)
-        BeltSubsystem.setkickerSpeed(0.1)
-
+        BeltSubsystem.setkickerSpeed(-0.1)
     }
 
     /**
@@ -26,7 +25,7 @@ class IndexerIdleCommand : CommandBase() {
      */
     override fun execute() {
         BeltSubsystem.setBeltSpeed(0.1)
-        BeltSubsystem.setkickerSpeed(0.1)
+        BeltSubsystem.setkickerSpeed(-0.1)
     }
 
     /**
@@ -43,7 +42,6 @@ class IndexerIdleCommand : CommandBase() {
      */
     override fun isFinished(): Boolean {
         return !(BeltSubsystem.beltSpeed != 0.1 && BeltSubsystem.kickerSpeed != 0.1) // idk if this is proper
-
     }
 
     /**

@@ -4,27 +4,33 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax
 import com.revrobotics.CANSparkMaxLowLevel
 import org.sert2521.bunnybots2023.ElectronicIds
+import org.sert2521.bunnybots2023.commands.IndexerIdleCommand
 
 
 //Belt system is the belt and the kicker
 object BeltSubsystem : SubsystemBase() {
     /*
-    modes:
-    - kicker slow reverse
-    - kicker fast forward: kick
-    - belt slow
-    - belt fast
-     */
+        modes:
+        - kicker slow reverse
+        - kicker fast forward: kick
+        - belt slow
+        - belt fast
+         */
     private val beltMotor = CANSparkMax(ElectronicIds.BeltMotorId, CANSparkMaxLowLevel.MotorType.kBrushless) // ID = -1
     private val beltEncoder = beltMotor.encoder
 
     private val kickerMotor = CANSparkMax(ElectronicIds.KickerMotorId, CANSparkMaxLowLevel.MotorType.kBrushless) // ID = -1
     private val kickerEncoder = kickerMotor.encoder
 
+    private val defaultCommand = IndexerIdleCommand()
+
     var beltSpeed = 0.0
     var kickerSpeed = 0.0
 
     var time = 0
+    init{
+        this.defaultCommand
+    }
 
     fun setBeltSpeed(speed: Double) {
         beltMotor.set(speed)
