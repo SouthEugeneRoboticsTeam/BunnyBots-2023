@@ -3,7 +3,7 @@ package org.sert2521.bunnybots2023.commands
 import edu.wpi.first.wpilibj2.command.CommandBase
 import org.sert2521.bunnybots2023.subsystems.BeltSubsystem
 
-class kickerKickCommand : CommandBase() {
+class KickerKickCommand : CommandBase() {
 
 
     init {
@@ -17,17 +17,15 @@ class kickerKickCommand : CommandBase() {
     }
 
     override fun execute() {
-        BeltSubsystem.time++
+        BeltSubsystem.kickerTime++
     }
 
     override fun isFinished(): Boolean {
-        if(BeltSubsystem.time == 20){
-            return true
-        }
-        return false //
+        return BeltSubsystem.kickerTime == 20 // calibrate as needed I guess.
     }
 
     override fun end(interrupted: Boolean) {
         BeltSubsystem.setkickerSpeed(-.1)
+        BeltSubsystem.kickerTime = 0
     }
 }

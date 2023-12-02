@@ -7,15 +7,9 @@ import org.sert2521.bunnybots2023.ElectronicIds
 import org.sert2521.bunnybots2023.commands.IndexerIdleCommand
 
 
-//Belt system is the belt and the kicker
+
 object BeltSubsystem : SubsystemBase() {
-    /*
-        modes:
-        - kicker slow reverse
-        - kicker fast forward: kick
-        - belt slow
-        - belt fast
-         */
+
     private val beltMotor = CANSparkMax(ElectronicIds.BeltMotorId, CANSparkMaxLowLevel.MotorType.kBrushless) // ID = -1
     private val beltEncoder = beltMotor.encoder
 
@@ -27,7 +21,7 @@ object BeltSubsystem : SubsystemBase() {
     var beltSpeed = 0.0
     var kickerSpeed = 0.0
 
-    var time = 0
+    var kickerTime = 0
     init{
         this.defaultCommand
     }
@@ -44,6 +38,9 @@ object BeltSubsystem : SubsystemBase() {
 
 
 
+
+// superfluous mumbo jumbo
+/*
     private fun setBeltSpeedRPM(rpm: Double) {
         val ratedSpeedRPM = 5676
         val speedPerUnit = rpm / ratedSpeedRPM
@@ -80,4 +77,6 @@ object BeltSubsystem : SubsystemBase() {
         return velocityRPM
     }
 
+
+ */
 }
