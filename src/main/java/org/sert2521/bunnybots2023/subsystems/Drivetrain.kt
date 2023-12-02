@@ -1,6 +1,10 @@
 package org.sert2521.bunnybots2023.subsystems
 
 
+import com.ctre.phoenix.motorcontrol.ControlMode
+import com.ctre.phoenix.motorcontrol.NeutralMode
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode
+import com.ctre.phoenix.motorcontrol.can.TalonFX
 import com.ctre.phoenix.sensors.CANCoder
 import com.kauailabs.navx.frc.AHRS
 import com.revrobotics.CANSparkMax
@@ -18,7 +22,7 @@ import org.sert2521.bunnybots2023.*
 import org.sert2521.bunnybots2023.commands.JoystickDrive
 import kotlin.math.*
 
-class SwerveModule(private val powerMotor: CANSparkMax,
+class SwerveModule(private val powerMotor: TalonFX,
                    private val powerFeedforward: SimpleMotorFeedforward,
                    private val powerPID: PIDController,
                    private val angleMotor: CANSparkMax,
@@ -46,10 +50,7 @@ class SwerveModule(private val powerMotor: CANSparkMax,
 
         powerMotor.inverted = inverted
 
-        powerMotor.encoder.positionConversionFactor = PhysicalConstants.powerEncoderMultiplierPosition
-        powerMotor.encoder.velocityConversionFactor = PhysicalConstants.powerEncoderMultiplierVelocity
-
-        position = SwerveModulePosition(powerMotor.encoder.position, getAngle())
+        position = SwerveModulePosition(powerMotor.selectedSensorPosition * PhysicalConstants.powerEncoderMultiplierPosition, getAngle())
     }
 
     private fun getAngle(): Rotation2d {
@@ -75,8 +76,8 @@ class SwerveModule(private val powerMotor: CANSparkMax,
     // Should be called in periodic
     fun updateState() {
         val angle = getAngle()
-        state = SwerveModuleState(powerMotor.encoder.velocity, angle)
-        position = SwerveModulePosition(powerMotor.encoder.position, angle)
+        state = SwerveModuleState(powerMotor.selectedSensorVelocity * PhysicalConstants.powerEncoderMultiplierVelocity, angle)
+        position = SwerveModulePosition(powerMotor.selectedSensorPosition * PhysicalConstants.powerEncoderMultiplierPosition, angle)
     }
 
     fun set(wanted: SwerveModuleState) {
@@ -96,9 +97,9 @@ class SwerveModule(private val powerMotor: CANSparkMax,
 
         // Why isn't motor.inverted working if it isn't
         if (!inverted) {
-            powerMotor.set((feedforward + pid) / 12.0)
+            powerMotor.set(ControlMode.Current, (feedforward + pid))
         } else {
-            powerMotor.set(-(feedforward + pid) / 12.0)
+            powerMotor.set(ControlMode.Current,-(feedforward + pid) / 12.0)
         }
         angleMotor.set(anglePID.calculate(state.angle.radians, optimized.angle.radians))
     }
@@ -109,16 +110,16 @@ class SwerveModule(private val powerMotor: CANSparkMax,
 
     fun setMotorMode(coast: Boolean) {
         if (coast) {
-            powerMotor.idleMode = CANSparkMax.IdleMode.kCoast
+            powerMotor.setNeutralMode(NeutralMode.Coast)
             angleMotor.idleMode = CANSparkMax.IdleMode.kCoast
         } else {
-            powerMotor.idleMode = CANSparkMax.IdleMode.kBrake
+            powerMotor.setNeutralMode(NeutralMode.Brake)
             angleMotor.idleMode = CANSparkMax.IdleMode.kBrake
         }
     }
 
     override fun stopMotor() {
-        powerMotor.stopMotor()
+        powerMotor.set(TalonFXControlMode.Current, 0.0)
         angleMotor.stopMotor()
     }
 
@@ -157,7 +158,7 @@ object Drivetrain : SubsystemBase() {
 
         // Maybe the module should create the motors
         for (moduleData in ElectronicIDs.swerveModuleData) {
-            val powerMotor = CANSparkMax(moduleData.powerMotorID, CANSparkMaxLowLevel.MotorType.kBrushless)
+            val powerMotor = TalonFX(moduleData.powerMotorID)
             val angleMotor = CANSparkMax(moduleData.angleMotorID, CANSparkMaxLowLevel.MotorType.kBrushless)
 
             modulePositions.add(moduleData.position)
@@ -208,7 +209,7 @@ object Drivetrain : SubsystemBase() {
         return Pose2d(visionPose.y, visionPose.x, -visionPose.rotation)
     }
 
-    private fun createModule(powerMotor: CANSparkMax, angleMotor: CANSparkMax, moduleData: SwerveModuleData): SwerveModule {
+    private fun createModule(powerMotor: TalonFX, angleMotor: CANSparkMax, moduleData: SwerveModuleData): SwerveModule {
         return SwerveModule(powerMotor,
             SimpleMotorFeedforward(TunedConstants.swervePowerS, TunedConstants.swervePowerV, TunedConstants.swervePowerA),
             PIDController(TunedConstants.swervePowerP, TunedConstants.swervePowerI, TunedConstants.swervePowerD),
