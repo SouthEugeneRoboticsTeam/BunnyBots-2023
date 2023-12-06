@@ -3,7 +3,8 @@ package org.sert2521.bunnybots2023.commands
 import edu.wpi.first.wpilibj2.command.CommandBase
 import org.sert2521.bunnybots2023.subsystems.BeltSubsystem
 
-class IndexerIdleCommand : CommandBase() {
+class IndexerIntakeCommand : CommandBase() {
+
 
 
     init {
@@ -15,8 +16,9 @@ class IndexerIdleCommand : CommandBase() {
      * The initial subroutine of a command.  Called once when the command is initially scheduled.
      */
     override fun initialize() {
-        BeltSubsystem.setBeltSpeed(0.1)
-        BeltSubsystem.setKickerSpeed(-0.1)
+        BeltSubsystem.intakeTime = 0
+        BeltSubsystem.setKickerSpeed(-0.3)
+        BeltSubsystem.setBeltSpeed(0.3)
     }
 
     /**
@@ -24,8 +26,7 @@ class IndexerIdleCommand : CommandBase() {
      * (That is, it is called repeatedly until [isFinished] returns true.)
      */
     override fun execute() {
-        BeltSubsystem.setBeltSpeed(0.1)
-        BeltSubsystem.setKickerSpeed(-0.1)
+        BeltSubsystem.intakeTime++
     }
 
     /**
@@ -41,7 +42,7 @@ class IndexerIdleCommand : CommandBase() {
      * @return whether this command has finished.
      */
     override fun isFinished(): Boolean {
-        return !(BeltSubsystem.beltSpeed != 0.1 && BeltSubsystem.kickerSpeed != 0.1) // idk if this is proper
+        return BeltSubsystem.intakeTime == 20
     }
 
     /**
@@ -52,5 +53,8 @@ class IndexerIdleCommand : CommandBase() {
      *
      * @param interrupted whether the command was interrupted/canceled
      */
-    override fun end(interrupted: Boolean) {}
+    override fun end(interrupted: Boolean) {
+        IndexerIdleCommand()
+        BeltSubsystem.intakeTime = 0
+    }
 }

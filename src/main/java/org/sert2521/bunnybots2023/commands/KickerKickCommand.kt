@@ -12,7 +12,9 @@ class KickerKickCommand : CommandBase() {
     }
 
     override fun initialize() {
-        BeltSubsystem.setkickerSpeed(0.7)
+        BeltSubsystem.kickerTime = 0
+        BeltSubsystem.setKickerSpeed(0.7)
+        BeltSubsystem.setBeltSpeed(0.7)
 
     }
 
@@ -25,7 +27,7 @@ class KickerKickCommand : CommandBase() {
     }
 
     override fun end(interrupted: Boolean) {
-        BeltSubsystem.setkickerSpeed(-.1)
+        IndexerIdleCommand()
         BeltSubsystem.kickerTime = 0
     }
 }

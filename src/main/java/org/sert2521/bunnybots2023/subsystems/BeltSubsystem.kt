@@ -22,6 +22,7 @@ object BeltSubsystem : SubsystemBase() {
     var kickerSpeed = 0.0
 
     var kickerTime = 0
+    var intakeTime = 0
     init{
         this.defaultCommand
     }
@@ -30,7 +31,7 @@ object BeltSubsystem : SubsystemBase() {
         beltMotor.set(speed)
         beltSpeed = speed
     }
-    fun setkickerSpeed(speed: Double) {
+    fun setKickerSpeed(speed: Double) {
         kickerMotor.set(speed)
         kickerSpeed = speed
     }
@@ -39,7 +40,7 @@ object BeltSubsystem : SubsystemBase() {
 
 
 
-// superfluous mumbo jumbo
+// superfluous mumbo jumbo (do not delete though)
 /*
     private fun setBeltSpeedRPM(rpm: Double) {
         val ratedSpeedRPM = 5676
