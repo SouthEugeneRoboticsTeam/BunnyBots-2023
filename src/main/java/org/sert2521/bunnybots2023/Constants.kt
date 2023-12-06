@@ -24,7 +24,7 @@ object PhysicalConstants {
 
     const val powerEncoderMultiplierPosition = PI * 0.1016 / 8.14
     const val powerEncoderMultiplierVelocity = powerEncoderMultiplierPosition / 60.0
-    const val angleEncoderMultiplier = 0.01745329251
+    const val angleEncoderMultiplier = 0.01765038852
 
     const val wristEncoderMultiplier = 0.0
     const val wristEncoderTransform = 0.0
@@ -45,19 +45,20 @@ object TunedConstants {
 
 
     //Feedforward constants
-    const val swervePowerS = 0.6
-    const val swervePowerV = 2.0
+    const val swervePowerS = 0.0//8.2
+    const val swervePowerV = 0.0//7.0
     const val swervePowerA = 0.0
 
     //PID loop constants
-    const val swervePowerP = 0.0
+    const val swervePowerP = 0.0//1.0
     const val swervePowerI = 0.0
     const val swervePowerD = 0.0
 
-    const val swerveAngleP = 0.0
+    const val swerveAngleP = 8.0
     const val swerveAngleI = 0.0
     const val swerveAngleD = 0.0
 
+    const val swerveAngleS = 0.0
 
     const val wristP = 0.0
     const val wristI = 0.0
@@ -92,11 +93,11 @@ object ConfigConstants {
 
 object ElectronicIDs {
     const val clawMotorId = 9
-    val swerveModuleData = listOf(
-        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 13, 3, 17, 0.0, false), //Front Right
-        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 0.0, false), //Back Right
-        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 12, 7, 15, 0.0, false), //Back Left
-        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 11, 8, 14, 0.0, false) //Front Left
+    val swerveModuleData = listOf(//2pi/(302.45- (-53.53))= x
+        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 13, 3, 17, 2.178 + PI, false), //Front Right
+        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 1.126, true), //Back Right
+        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 12, 7, 15, 4.459, false), //Back Left
+        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 11, 8, 14, 6.281 + PI, true) //Front Left
     )
 
     const val wristMotor = -1

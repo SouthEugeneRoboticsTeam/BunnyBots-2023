@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.NeutralMode
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode
 import com.ctre.phoenix.motorcontrol.can.TalonFX
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX
 import com.ctre.phoenix.sensors.CANCoder
 import com.kauailabs.navx.frc.AHRS
 import com.revrobotics.CANSparkMax
@@ -22,18 +23,19 @@ import org.sert2521.bunnybots2023.*
 import org.sert2521.bunnybots2023.commands.JoystickDrive
 import kotlin.math.*
 
-class SwerveModule(private val powerMotor: TalonFX,
-                   private val powerFeedforward: SimpleMotorFeedforward,
-                   private val powerPID: PIDController,
-                   private val angleMotor: CANSparkMax,
-                   private val angleEncoder: CANCoder,
-                   private val angleOffset: Double,
-                   private val anglePID: PIDController,
-                   private val centerRotation: Rotation2d,
-                   private val inverted: Boolean,
-                   var state: SwerveModuleState,
-                   shouldOptimize: Boolean,
-                   brakeMode: Boolean) : MotorSafety() {
+class SwerveModule(
+    val powerMotor: WPI_TalonFX,
+    private val powerFeedforward: SimpleMotorFeedforward,
+    private val powerPID: PIDController,
+    val angleMotor: CANSparkMax,
+    private val angleEncoder: CANCoder,
+    private val angleOffset: Double,
+    private val anglePID: PIDController,
+    private val centerRotation: Rotation2d,
+    private val inverted: Boolean,
+    var state: SwerveModuleState,
+    shouldOptimize: Boolean,
+    brakeMode: Boolean) : MotorSafety() {
     var doesOptimize = shouldOptimize
         private set
 
@@ -53,11 +55,11 @@ class SwerveModule(private val powerMotor: TalonFX,
         position = SwerveModulePosition(powerMotor.selectedSensorPosition * PhysicalConstants.powerEncoderMultiplierPosition, getAngle())
     }
 
-    private fun getAngle(): Rotation2d {
+    fun getAngle(): Rotation2d {
         return if (inverted) {
-            Rotation2d(-(angleEncoder.absolutePosition * PhysicalConstants.angleEncoderMultiplier - angleOffset))
+            Rotation2d(-((angleEncoder.absolutePosition * PhysicalConstants.angleEncoderMultiplier) - angleOffset))
         } else {
-            Rotation2d(angleEncoder.absolutePosition * PhysicalConstants.angleEncoderMultiplier - angleOffset)
+            Rotation2d((angleEncoder.absolutePosition * PhysicalConstants.angleEncoderMultiplier) - angleOffset)
         }
     }
 
@@ -97,11 +99,12 @@ class SwerveModule(private val powerMotor: TalonFX,
 
         // Why isn't motor.inverted working if it isn't
         if (!inverted) {
-            powerMotor.set(ControlMode.Current, (feedforward + pid))
+            powerMotor.setVoltage((feedforward + pid)/12.0)
         } else {
-            powerMotor.set(ControlMode.Current,-(feedforward + pid) / 12.0)
+            powerMotor.setVoltage(-(feedforward + pid) / 12.0)
         }
-        angleMotor.set(anglePID.calculate(state.angle.radians, optimized.angle.radians))
+        angleMotor.setVoltage(anglePID.calculate(state.angle.radians, optimized.angle.radians))
+        println(angleMotor.appliedOutput)
     }
 
     fun enterBrakePos() {
@@ -157,7 +160,7 @@ object Drivetrain : SubsystemBase() {
         for (moduleData in ElectronicIDs.swerveModuleData) {
 
             //My co-lead's fault
-            val powerMotor = TalonFX(moduleData.powerMotorID, "bILLYbOBjOE")
+            val powerMotor = WPI_TalonFX(moduleData.powerMotorID, "bILLYbOBjOE")
 
             val angleMotor = CANSparkMax(moduleData.angleMotorID, CANSparkMaxLowLevel.MotorType.kBrushless)
 
@@ -180,7 +183,7 @@ object Drivetrain : SubsystemBase() {
 
         kinematics = SwerveDriveKinematics(*modulePositions.toTypedArray())
         odometry = SwerveDriveOdometry(kinematics, -imu.rotation2d, positionsArray, Pose2d())
-        poseEstimator = SwerveDrivePoseEstimator(kinematics, -imu.rotation2d, positionsArray, Pose2d(), TunedConstants.encoderDeviations, TunedConstants.defaultVisionDeviations)
+        poseEstimator = SwerveDrivePoseEstimator(kinematics, -imu.rotation2d, positionsArray, Pose2d())
 
         Drivetrain.defaultCommand = JoystickDrive(true)
     }
@@ -189,7 +192,7 @@ object Drivetrain : SubsystemBase() {
         return Pose2d(pose.y, pose.x, -pose.rotation)
     }
 
-    private fun createModule(powerMotor: TalonFX, angleMotor: CANSparkMax, moduleData: SwerveModuleData): SwerveModule {
+    private fun createModule(powerMotor: WPI_TalonFX, angleMotor: CANSparkMax, moduleData: SwerveModuleData): SwerveModule {
         return SwerveModule(powerMotor,
             SimpleMotorFeedforward(TunedConstants.swervePowerS, TunedConstants.swervePowerV, TunedConstants.swervePowerA),
             PIDController(TunedConstants.swervePowerP, TunedConstants.swervePowerI, TunedConstants.swervePowerD),
@@ -204,6 +207,9 @@ object Drivetrain : SubsystemBase() {
             true
         )
     }
+    //TODO: uncomment periodic
+
+
 
     override fun periodic() {
         val positions = mutableListOf<SwerveModulePosition>()
@@ -212,6 +218,10 @@ object Drivetrain : SubsystemBase() {
             module.updateState()
             positions.add(module.position)
         }
+        println(listOf(modules[0].getAngle().radians, modules[1].getAngle().radians, modules[2].getAngle().radians, modules[3].getAngle().radians))
+
+
+
 
         val positionsArray = positions.toTypedArray()
 
@@ -225,6 +235,8 @@ object Drivetrain : SubsystemBase() {
         prevPose = pose
         prevTime = currTime
     }
+
+
 
     fun setOptimize(value: Boolean) {
         doesOptimize = value
