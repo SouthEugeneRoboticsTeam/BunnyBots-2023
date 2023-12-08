@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import org.sert2521.bunnybots2023.commands.JoystickCommand
 import org.sert2521.bunnybots2023.commands.JoystickDrive
+import org.sert2521.bunnybots2023.commands.RunWrist
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
+import org.sert2521.bunnybots2023.subsystems.Wrist
 
 
 /**
@@ -23,7 +25,8 @@ object Robot : TimedRobot()
     init {
         Input
         Drivetrain
-
+        Drivetrain.setMode(false)
+        Wrist
 
     }
 
@@ -34,6 +37,8 @@ object Robot : TimedRobot()
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run()
+        Output.update()
+        //println(Wrist.trueEncoder.get()+PhysicalConstants.wristEncoderTransform)
     }
 
     /** This method is called once each time the robot enters Disabled mode.  */

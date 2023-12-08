@@ -15,6 +15,7 @@ import org.sert2521.bunnybots2023.PhysicalConstants
 import org.sert2521.bunnybots2023.RuntimeConstants
 import org.sert2521.bunnybots2023.TunedConstants
 import org.sert2521.bunnybots2023.subsystems.Wrist
+import kotlin.math.sign
 
 class RunWrist : CommandBase() {
 
@@ -22,7 +23,7 @@ class RunWrist : CommandBase() {
     private val feedforward = ArmFeedforward(TunedConstants.wristS, TunedConstants.wristG,
         TunedConstants.wristV, TunedConstants.wristA
     )
-    private val trueEncoder = DutyCycleEncoder(ElectronicIDs.wristTrueEncoder)
+    private var trueEncoder = Wrist.getEncoder()
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
         addRequirements(Wrist)
@@ -31,14 +32,18 @@ class RunWrist : CommandBase() {
     override fun initialize() {}
 
     override fun execute() {
-        val trueEncoderDistance = (trueEncoder.distance*PhysicalConstants.wristEncoderMultiplier)+PhysicalConstants.wristEncoderTransform
+        trueEncoder = Wrist.getEncoder()
+        val wristAngle = (trueEncoder+PhysicalConstants.wristEncoderTransform)*PhysicalConstants.wristEncoderMultiplier
+
 
         if (RuntimeConstants.wristSetPoint <= PhysicalConstants.wristSetpointMin){
             RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMin
         } else if (RuntimeConstants.wristSetPoint >= PhysicalConstants.wristSetpointMax){
             RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMax
         }
-        Wrist.setVoltage(motorPID.calculate(trueEncoderDistance, RuntimeConstants.wristSetPoint)+feedforward.calculate(RuntimeConstants.wristSetPoint, 0.0))
+
+        //Wrist.setVoltage(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(trueEncoder, 0.0))
+        println(feedforward.calculate(trueEncoder, 0.0))
     }
 
     override fun isFinished(): Boolean {
