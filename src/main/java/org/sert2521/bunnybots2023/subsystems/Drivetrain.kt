@@ -3,6 +3,7 @@ package org.sert2521.bunnybots2023.subsystems
 
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.NeutralMode
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode
 import com.ctre.phoenix.motorcontrol.can.TalonFX
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX
@@ -33,6 +34,7 @@ class SwerveModule(
     private val anglePID: PIDController,
     private val centerRotation: Rotation2d,
     private val inverted: Boolean,
+    private val invertedRotation: Boolean,
     var state: SwerveModuleState,
     shouldOptimize: Boolean,
     brakeMode: Boolean) : MotorSafety() {
@@ -42,6 +44,7 @@ class SwerveModule(
     var position: SwerveModulePosition
 
     init {
+        angleMotor.restoreFactoryDefaults()
         if (doesOptimize) {
             anglePID.enableContinuousInput(-PI, PI)
         } else {
@@ -53,6 +56,9 @@ class SwerveModule(
         powerMotor.inverted = inverted
 
         position = SwerveModulePosition(powerMotor.selectedSensorPosition * PhysicalConstants.powerEncoderMultiplierPosition, getAngle())
+
+        powerMotor.configStatorCurrentLimit(StatorCurrentLimitConfiguration(true, 60.0, 60.0, 0.25))
+        angleMotor.setSmartCurrentLimit(50)
     }
 
     fun getAngle(): Rotation2d {
@@ -103,8 +109,13 @@ class SwerveModule(
         } else {
             powerMotor.setVoltage(-(feedforward + pid) / 12.0)
         }
-        angleMotor.setVoltage(anglePID.calculate(state.angle.radians, optimized.angle.radians))
-        println(angleMotor.appliedOutput)
+        if (!invertedRotation){
+            angleMotor.setVoltage(anglePID.calculate(state.angle.radians, optimized.angle.radians))
+        } else {
+            angleMotor.setVoltage(anglePID.calculate(-state.angle.radians, -optimized.angle.radians))
+        }
+        //angleMotor.setVoltage(anglePID.calculate(state.angle.radians, optimized.angle.radians))
+        //println(angleMotor.appliedOutput)
     }
 
     fun enterBrakePos() {
@@ -202,6 +213,7 @@ object Drivetrain : SubsystemBase() {
             PIDController(TunedConstants.swerveAngleP, TunedConstants.swerveAngleI, TunedConstants.swerveAngleD),
             Rotation2d(atan2(moduleData.position.y, moduleData.position.x)),
             moduleData.inverted,
+            moduleData.invertedRotation,
             SwerveModuleState(),
             doesOptimize,
             true
@@ -218,7 +230,7 @@ object Drivetrain : SubsystemBase() {
             module.updateState()
             positions.add(module.position)
         }
-        println(listOf(modules[0].getAngle().radians, modules[1].getAngle().radians, modules[2].getAngle().radians, modules[3].getAngle().radians))
+        //println(listOf(modules[0].getAngle().radians, modules[1].getAngle().radians, modules[2].getAngle().radians, modules[3].getAngle().radians))
 
 
 

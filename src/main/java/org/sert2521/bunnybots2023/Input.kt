@@ -1,6 +1,7 @@
 package org.sert2521.bunnybots2023
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode
+import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.*
 import org.sert2521.bunnybots2023.commands.ClawIntake
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
+import org.sert2521.bunnybots2023.subsystems.Wrist
 
 object Input {
     private val driverController = XboxController(0)
@@ -69,6 +71,8 @@ object Input {
 
         clawIntake.whileTrue(InstantCommand({Drivetrain.modules[0].angleMotor.set(1.0)}))
         clawOuttake.whileTrue(ClawIntake(-0.3))
+        //resetAngle.onTrue(InstantCommand({Drivetrain.setNewPose(Pose2d())}))
+        resetAngle.onTrue(InstantCommand({Wrist.resetEncoder()}))
     }
 
     fun getAuto(): Command? {
