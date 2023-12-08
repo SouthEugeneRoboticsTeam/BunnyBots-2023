@@ -67,10 +67,10 @@ object TunedConstants {
     const val wristD = 0.0
 
     //ESTIMATIONS
-    const val wristS = 16.0
-    const val wristG = 0.0//0.31
-    const val wristV = 0.0//1.30
-    const val wristA = 0.0//0.01
+    const val wristS = 0.0
+    const val wristG = 0.00000000001//0.31
+    const val wristV = 0.00000000001//1.30
+    const val wristA = 0.00000000001//0.01
 }
 
 object ConfigConstants {

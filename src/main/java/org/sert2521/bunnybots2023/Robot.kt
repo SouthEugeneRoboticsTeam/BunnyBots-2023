@@ -38,7 +38,7 @@ object Robot : TimedRobot()
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run()
         Output.update()
-        println(Wrist.trueEncoder.get()+PhysicalConstants.wristEncoderTransform)
+        //println(Wrist.trueEncoder.get()+PhysicalConstants.wristEncoderTransform)
     }
 
     /** This method is called once each time the robot enters Disabled mode.  */
