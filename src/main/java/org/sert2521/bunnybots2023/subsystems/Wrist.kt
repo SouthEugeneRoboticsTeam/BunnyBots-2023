@@ -15,8 +15,9 @@ object Wrist : SubsystemBase() {
  val motorSpeed = 0.0
 
  init{
-  motor.setSmartCurrentLimit(10)
+  motor.setSmartCurrentLimit(40)
   defaultCommand= RunWrist()
+  motor.inverted = true
  }
  fun setSpeed(speed:Double){
   motor.set(speed)

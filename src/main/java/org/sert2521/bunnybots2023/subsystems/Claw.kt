@@ -13,7 +13,7 @@ object Claw : SubsystemBase() {
     init {
         clawMotor.inverted = true
         clawMotor.idleMode = CANSparkMax.IdleMode.kBrake
-        clawMotor.setSmartCurrentLimit(10, 45)
+        clawMotor.setSmartCurrentLimit(20)
         //this.defaultCommand = ClawIntake(0.1)
     }
 
@@ -23,5 +23,16 @@ object Claw : SubsystemBase() {
 
     fun stop() {
         clawMotor.stopMotor()
+    }
+
+    fun setCurrentLimit(current:Int){
+        clawMotor.setSmartCurrentLimit(current)
+    }
+
+    fun breakingMode(breaking:Boolean){
+        when (breaking){
+            true -> clawMotor.idleMode = CANSparkMax.IdleMode.kBrake
+            false -> clawMotor.idleMode = CANSparkMax.IdleMode.kCoast
+        }
     }
 }

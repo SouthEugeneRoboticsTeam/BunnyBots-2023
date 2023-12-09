@@ -21,18 +21,20 @@ object Input {
     private val resetAngle = JoystickButton(driverController, 4)
     private val secondarySpeedButton = JoystickButton(driverController, 5)
 
-    private val clawIntake = JoystickButton(driverController, 1)
-    private val clawOuttake = JoystickButton(driverController, 2)
+    private val clawIntake = JoystickButton(gunnerController, 3)
+    private val clawOuttake = JoystickButton(driverController, 6)
 
-    /*
-    private val wristGround = JoystickButton(gunnerController, 1)
-    private val wristTote = JoystickButton(gunnerController, 2)
-    private val wristRest = JoystickButton(gunnerController, 3)
 
-    private val wristUp = JoystickButton(gunnerController, 4)
-    private val wristDown = JoystickButton(gunnerController, 5)
+    private val wristGround = JoystickButton(gunnerController, 5)
+    private val wristTote = JoystickButton(gunnerController, 6)
+    private val wristStow = JoystickButton(gunnerController, 7)
 
-    */
+    private val wristUp = JoystickButton(gunnerController, 17)
+    private val wristDown = JoystickButton(gunnerController, 19)
+
+
+
+
 
     private val autoChooser = SendableChooser<() -> Command?>()
     /*
@@ -69,10 +71,14 @@ object Input {
 
          */
 
-        clawIntake.whileTrue(InstantCommand({Drivetrain.modules[0].angleMotor.set(1.0)}))
-        clawOuttake.whileTrue(ClawIntake(-0.3))
-        //resetAngle.onTrue(InstantCommand({Drivetrain.setNewPose(Pose2d())}))
-        resetAngle.onTrue(InstantCommand({Wrist.resetEncoder()}))
+        clawIntake.whileTrue(ClawIntake(0.8))
+        clawOuttake.whileTrue(ClawIntake(-1.0))
+        resetAngle.onTrue(InstantCommand({Drivetrain.setNewPose(Pose2d())}))
+        //resetAngle.onTrue(InstantCommand({Wrist.resetEncoder()}))
+
+        wristTote.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointTote }))
+        wristGround.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointGround }))
+        wristStow.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointStow }))
     }
 
     fun getAuto(): Command? {

@@ -26,17 +26,18 @@ object PhysicalConstants {
     const val powerEncoderMultiplierVelocity = powerEncoderMultiplierPosition / 60.0
     const val angleEncoderMultiplier = 0.01770398088
 
-    const val wristEncoderMultiplier = -2.859/(0.54)
+    const val wristEncoderMultiplier = 6.411
+    const val wristEncoderTransform = 1.026
 
-    const val wristEncoderTransform = -0.176524
-    //0.5298-0.08384
+    //0.085x +y = PI/2
+    //-0.160x +y = 0.0
 
-    const val wristSetpointGround = PI/16.0
-    const val wristSetpointTote = PI/4.0
-    const val wristSetpointRest = PI/2.0
+    const val wristSetpointGround = 5.71-2*PI
+    const val wristSetpointTote = PI/7.6
+    const val wristSetpointStow = PI/1.9
 
-    const val wristSetpointMin = PI/16
-    const val wristSetpointMax = PI/2.0
+    const val wristSetpointMin = -1000.0
+    const val wristSetpointMax = 1000.0
 
 }
 
@@ -62,15 +63,15 @@ object TunedConstants {
 
     const val swerveAngleS = 0.0
 
-    const val wristP = 0.0
+    const val wristP = 7.0
     const val wristI = 0.0
     const val wristD = 0.0
 
     //ESTIMATIONS
     const val wristS = 0.0
-    const val wristG = 0.00000000001//0.31
-    const val wristV = 0.00000000001//1.30
-    const val wristA = 0.00000000001//0.01
+    const val wristG = 0.35
+    const val wristV = 0.0
+    const val wristA = 0.0
 }
 
 object ConfigConstants {
@@ -107,7 +108,7 @@ object ElectronicIDs {
 }
 
 object RuntimeConstants {
-    var wristSetPoint = 0.0
+    var wristSetPoint = PhysicalConstants.wristSetpointStow
 
 }
 

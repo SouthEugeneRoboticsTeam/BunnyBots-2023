@@ -15,6 +15,7 @@ import org.sert2521.bunnybots2023.PhysicalConstants
 import org.sert2521.bunnybots2023.RuntimeConstants
 import org.sert2521.bunnybots2023.TunedConstants
 import org.sert2521.bunnybots2023.subsystems.Wrist
+import kotlin.math.PI
 import kotlin.math.sign
 
 class RunWrist : CommandBase() {
@@ -33,17 +34,21 @@ class RunWrist : CommandBase() {
 
     override fun execute() {
         trueEncoder = Wrist.getEncoder()
-        val wristAngle = (trueEncoder+PhysicalConstants.wristEncoderTransform)*PhysicalConstants.wristEncoderMultiplier
+        var wristAngle = (trueEncoder)*PhysicalConstants.wristEncoderMultiplier+PhysicalConstants.wristEncoderTransform
 
-
+        if (wristAngle>=PI){
+            wristAngle -= 2*PI
+        }
+        /*
         if (RuntimeConstants.wristSetPoint <= PhysicalConstants.wristSetpointMin){
             RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMin
         } else if (RuntimeConstants.wristSetPoint >= PhysicalConstants.wristSetpointMax){
             RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMax
         }
+         */
 
-        //Wrist.setVoltage(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(trueEncoder, 0.0))
-        println(feedforward.calculate(trueEncoder, 0.0))
+        Wrist.setVoltage(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
+        println(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
     }
 
     override fun isFinished(): Boolean {
