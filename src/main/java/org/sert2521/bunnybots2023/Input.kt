@@ -1,6 +1,7 @@
 package org.sert2521.bunnybots2023
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode
+import com.pathplanner.lib.util.PIDConstants
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
@@ -15,6 +16,7 @@ import org.sert2521.bunnybots2023.commands.IndexerIntakeCommand
 import org.sert2521.bunnybots2023.commands.IndexerReverseCommand
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
 import org.sert2521.bunnybots2023.subsystems.Wrist
+import com.pathplanner.lib.auto.AutoBuilder
 
 
 object Input {
@@ -41,30 +43,38 @@ object Input {
 
 
     private val autoChooser = SendableChooser<() -> Command?>()
-    /*
-    private val autoBuilder = SwerveAutoBuilder(
-        Drivetrain::getPose,
-        { Drivetrain.setNewPose(it); Drivetrain.setNewVisionPose(it) },
-        PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
-        PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
-        Drivetrain::drive,
-        ConfigConstants.eventMap,
-        true,
-        Drivetrain
-    )
 
-     */
+
+
+
+
+
 
 
     var secondarySpeedMode = false
 
     init {
         /*
+        AutoBuilder.configureHolonomic(
+                Drivetrain::getPose,
+                { Drivetrain.setNewPose(it)},
+                PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
+                PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
+                Drivetrain::drive,
+                ConfigConstants.eventMap,
+                true,
+                Drivetrain
+        )
+
+         */
+        /*
         autoChooser.setDefaultOption("Nothing") { null }
         for (path in ConfigConstants.paths) {
             autoChooser.addOption(path.first) { autoBuilder.fullAuto(path.second) }
         }
+
          */
+
         secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
         /*
         wristGround.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround}))

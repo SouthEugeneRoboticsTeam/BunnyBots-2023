@@ -7,6 +7,7 @@ import org.sert2521.bunnybots2023.ConfigConstants
 import org.sert2521.bunnybots2023.Input
 import kotlin.math.abs
 import kotlin.math.pow
+import kotlin.math.sign
 import kotlin.math.sqrt
 
 abstract class JoystickCommand : CommandBase() {
@@ -31,8 +32,8 @@ abstract class JoystickCommand : CommandBase() {
 
         //A variable meaning how close to the secondary speed it should get (as a trigger input)
         val secondaryMultiplyer = Input.getSecondarySpeed()
-        var currX = (Input.getX()).pow(2)
-        var currY = (Input.getY()).pow(2)
+        var currX = (Input.getX()).pow(2) * Input.getX().sign
+        var currY = (Input.getY()).pow(2) * Input.getY().sign
 
         // Checks if the joystick is outputting a magnitude greater than 1 and if it is normalizes the input
         // Otherwise it deadbands the input
