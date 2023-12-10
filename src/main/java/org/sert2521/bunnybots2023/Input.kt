@@ -32,7 +32,8 @@ object Input {
     private val wristUp = JoystickButton(gunnerController, 17)
     private val wristDown = JoystickButton(gunnerController, 19)
 
-
+    private val indexerIntake = JoystickButton(gunnerController, 8)
+    private val indexerReverse = JoystickButton(gunnerController, 9)
 
 
 
