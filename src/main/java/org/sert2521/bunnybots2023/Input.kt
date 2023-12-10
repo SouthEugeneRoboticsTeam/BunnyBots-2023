@@ -1,5 +1,7 @@
 package org.sert2521.bunnybots2023
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode
+import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
@@ -8,6 +10,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.*
+import org.sert2521.bunnybots2023.commands.ClawIntake
+import org.sert2521.bunnybots2023.subsystems.Drivetrain
+import org.sert2521.bunnybots2023.subsystems.Wrist
 
 object Input {
     private val driverController = XboxController(0)
@@ -15,6 +20,19 @@ object Input {
 
     private val resetAngle = JoystickButton(driverController, 4)
     private val secondarySpeedButton = JoystickButton(driverController, 5)
+
+    private val clawIntake = JoystickButton(gunnerController, 3)
+    private val clawOuttake = JoystickButton(driverController, 6)
+
+
+    private val wristGround = JoystickButton(gunnerController, 5)
+    private val wristTote = JoystickButton(gunnerController, 6)
+    private val wristStow = JoystickButton(gunnerController, 7)
+
+    private val wristUp = JoystickButton(gunnerController, 17)
+    private val wristDown = JoystickButton(gunnerController, 19)
+
+
 
 
 
@@ -43,6 +61,24 @@ object Input {
         }
          */
         secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
+        /*
+        wristGround.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround}))
+        wristTote.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointTote}))
+        wristRest.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointRest}))
+
+        wristUp.whileTrue(SlideWristSetpoint(-ConfigConstants.wristSlideSpeed))
+        wristDown.whileTrue(SlideWristSetpoint(ConfigConstants.wristSlideSpeed))
+
+         */
+
+        clawIntake.whileTrue(ClawIntake(0.8))
+        clawOuttake.whileTrue(ClawIntake(-1.0))
+        resetAngle.onTrue(InstantCommand({Drivetrain.setNewPose(Pose2d())}))
+        //resetAngle.onTrue(InstantCommand({Wrist.resetEncoder()}))
+
+        wristTote.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointTote }))
+        wristGround.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointGround }))
+        wristStow.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointStow }))
     }
 
     fun getAuto(): Command? {

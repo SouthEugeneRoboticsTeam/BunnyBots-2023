@@ -31,8 +31,8 @@ abstract class JoystickCommand : CommandBase() {
 
         //A variable meaning how close to the secondary speed it should get (as a trigger input)
         val secondaryMultiplyer = Input.getSecondarySpeed()
-        var currX = Input.getX()
-        var currY = Input.getY()
+        var currX = (Input.getX()).pow(2)
+        var currY = (Input.getY()).pow(2)
 
         // Checks if the joystick is outputting a magnitude greater than 1 and if it is normalizes the input
         // Otherwise it deadbands the input

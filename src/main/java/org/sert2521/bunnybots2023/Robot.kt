@@ -3,6 +3,12 @@ package org.sert2521.bunnybots2023
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
+import org.sert2521.bunnybots2023.commands.JoystickCommand
+import org.sert2521.bunnybots2023.commands.JoystickDrive
+import org.sert2521.bunnybots2023.commands.RunWrist
+import org.sert2521.bunnybots2023.subsystems.Claw
+import org.sert2521.bunnybots2023.subsystems.Drivetrain
+import org.sert2521.bunnybots2023.subsystems.Wrist
 
 
 /**
@@ -17,29 +23,14 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler
  */
 object Robot : TimedRobot()
 {
-    /**
-     * The autonomous command to run. While a default value is set here,
-     * the [autonomousInit] method will set it to the value selected in
-     *the  AutoChooser on the dashboard.
-     */
-
-
-    /**
-     * This method is run when the robot is first started up and should be used for any
-     * initialization code.
-     */
-    override fun robotInit()
-    {
+    init {
+        Input
+        Drivetrain
+        Drivetrain.setMode(false)
+        Wrist
 
     }
 
-    /**
-     * This method is called every 20 ms, no matter the mode. Use this for items like
-     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-     *
-     * This runs after the mode specific periodic methods, but before LiveWindow and
-     * SmartDashboard integrated updating.
-     */
     override fun robotPeriodic()
     {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -47,12 +38,21 @@ object Robot : TimedRobot()
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run()
+        Output.update()
+        //println(RuntimeConstants.wristSetPoint)
+
+        //println(Wrist.trueEncoder.get()*PhysicalConstants.wristEncoderMultiplier + PhysicalConstants.wristEncoderTransform)
     }
+    //0.827 -> 0.0
+    //1.081 -> PI/2
+    //0.827x + y = 0.0
+    //1.081x + y = PI/2
 
     /** This method is called once each time the robot enters Disabled mode.  */
     override fun disabledInit()
     {
-
+        CommandScheduler.getInstance().cancelAll()
+        Claw.breakingMode(true)
     }
 
     override fun disabledPeriodic()
@@ -73,9 +73,8 @@ object Robot : TimedRobot()
     {
     }
 
-    override fun teleopInit()
-    {
-
+    override fun teleopInit(){
+        Claw.breakingMode(false)
     }
 
     /** This method is called periodically during operator control.  */
