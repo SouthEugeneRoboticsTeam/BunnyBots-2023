@@ -3,7 +3,7 @@ package org.sert2521.bunnybots2023.commands
 import edu.wpi.first.wpilibj2.command.CommandBase
 import org.sert2521.bunnybots2023.subsystems.BeltSubsystem
 
-class IndexerIntakeCommand : CommandBase() {
+class IndexerReverseCommand : CommandBase() {
 
 
 
@@ -16,8 +16,8 @@ class IndexerIntakeCommand : CommandBase() {
      * The initial subroutine of a command.  Called once when the command is initially scheduled.
      */
     override fun initialize() {
-        BeltSubsystem.setKickerSpeed(-0.5)
-        BeltSubsystem.setBeltSpeed(0.5)
+        BeltSubsystem.setKickerSpeed(-0.7)
+        BeltSubsystem.setBeltSpeed(-0.7)
     }
 
     /**

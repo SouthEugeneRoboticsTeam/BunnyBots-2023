@@ -93,6 +93,8 @@ object ConfigConstants {
 
     const val kickTime = 20
     const val wristSlideSpeed = PI/200
+
+
 }
 
 object ElectronicIDs {
@@ -106,15 +108,14 @@ object ElectronicIDs {
 
     const val wristMotor = 1
     const val wristTrueEncoder = 8
+
+    const val kickerMotorID = 6
+    const val beltMotorID = 2
 }
 
 object RuntimeConstants {
     var wristSetPoint = PhysicalConstants.wristSetpointStow
 
-}
-object ElectronicIds {
-    const val BeltMotorId = 2
-    const val KickerMotorId = 6
 }
 
 

@@ -7,25 +7,25 @@ import java.io.ObjectInputFilter.Config
 
 class KickerKickCommand : CommandBase() {
 
-
+    var kickerTime = 0
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
         addRequirements(BeltSubsystem)
     }
 
     override fun initialize() {
-        BeltSubsystem.kickerTime = 0
+        kickerTime = 0
         BeltSubsystem.setKickerSpeed(0.7)
         BeltSubsystem.setBeltSpeed(0.7)
 
     }
 
     override fun execute() {
-        BeltSubsystem.kickerTime++
+        kickerTime++
     }
 
     override fun isFinished(): Boolean {
-        return BeltSubsystem.kickerTime >= ConfigConstants.kickTime // calibrate as needed I guess.
+        return kickerTime >= ConfigConstants.kickTime // calibrate as needed I guess.
     }
 
     override fun end(interrupted: Boolean) {}
