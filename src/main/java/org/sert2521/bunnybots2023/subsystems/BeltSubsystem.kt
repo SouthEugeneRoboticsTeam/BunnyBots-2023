@@ -23,7 +23,7 @@ object BeltSubsystem : SubsystemBase() {
     private var kickerTime = 0
     private var intakeTime = 0
     init{
-        //this.defaultCommand = IndexerIdleCommand()
+        this.defaultCommand = IndexerIdleCommand()
     }
 
     fun setBeltSpeed(speed: Double) {

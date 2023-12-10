@@ -95,8 +95,8 @@ object Input {
         wristGround.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointGround }))
         wristStow.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointStow }))
 
-        //indexerIntake.whileTrue(IndexerIntakeCommand())
-        //indexerReverse.whileTrue(IndexerReverseCommand())
+        indexerIntake.whileTrue(IndexerIntakeCommand())
+        indexerReverse.whileTrue(IndexerReverseCommand())
     }
 
     fun getAuto(): Command? {
