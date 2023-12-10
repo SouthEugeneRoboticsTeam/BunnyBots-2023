@@ -14,7 +14,7 @@ class VisionLock : CommandBase() {
 
     override fun initialize() {
         RuntimeConstants.disableRightStick = true
-
+        Vision.switchLights(true)
     }
 
     override fun execute() {
@@ -26,16 +26,13 @@ class VisionLock : CommandBase() {
             false -> visionLostTargetCycles += 1
         }
 
-        if (Vision.hasTarget() && abs(Vision.getYaw())>=TunedConstants.visionSusness){
+        if (Vision.hasTarget()){
             RuntimeConstants.visionRightStick = clamp((Vision.getYaw()*TunedConstants.visionP), -1.0, 1.0)
         } else {
             RuntimeConstants.visionRightStick = 0.0
         }
 
-        //If vision lost for more than a 1/5 seconds, then it panic cancels
-        if (visionLostTargetCycles >= 10){
-            this.cancel()
-        }
+
     }
 
     override fun isFinished(): Boolean {

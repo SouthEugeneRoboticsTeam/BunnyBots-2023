@@ -71,7 +71,7 @@ object TunedConstants {
 
     const val visionP = 0.01
 
-    const val visionSusness = 2.0
+    //const val visionSusness = 2.0
 }
 
 object ConfigConstants {
@@ -106,6 +106,8 @@ object ElectronicIDs {
 
     const val wristMotor = -1
     const val wristTrueEncoder = -1
+
+    const val limelightID = 7
 }
 
 object RuntimeConstants {

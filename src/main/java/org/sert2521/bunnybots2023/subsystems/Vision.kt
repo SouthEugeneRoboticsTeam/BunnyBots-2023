@@ -1,20 +1,24 @@
 package org.sert2521.bunnybots2023.subsystems
 
+import edu.wpi.first.wpilibj.DigitalOutput
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import org.photonvision.PhotonCamera
 import org.photonvision.targeting.PhotonPipelineResult
 import org.photonvision.targeting.PhotonTrackedTarget
+import org.sert2521.bunnybots2023.ElectronicIDs
 
 object Vision : SubsystemBase() {
     //Maddie said to call it Fredrick
     val cam = PhotonCamera("Fredrick")
     var result:PhotonPipelineResult = cam.latestResult
 
+    val lights = DigitalOutput(ElectronicIDs.limelightID)
+
     //goal is to see ALL reflective tape, or at least the bigger ones
-    var targets:List<PhotonTrackedTarget> = result.targets
+    private var targets:List<PhotonTrackedTarget> = result.targets
 
     //bestTarget means the biggest tape on the screen, so the closest
-    var bestTarget:PhotonTrackedTarget? = null
+    private var bestTarget:PhotonTrackedTarget? = null
 
     override fun periodic(){
         result = cam.latestResult
@@ -66,5 +70,9 @@ object Vision : SubsystemBase() {
 
     fun getYaw():Double{
         return bestTarget!!.yaw
+    }
+
+    fun switchLights(enabled: Boolean){
+        lights.set(enabled)
     }
 }
