@@ -16,7 +16,7 @@ object FlywheelSubsystem : SubsystemBase() {
         flywheelMotor.setIdleMode(CANSparkMax.IdleMode.kCoast)
     }
     fun setVoltage(voltage:Double){
-        flywheelMotor.setVoltage(voltage:Double)
+        flywheelMotor.setVoltage(voltage)
     }
     fun stop(){
         flywheelMotor.stopMotor()
