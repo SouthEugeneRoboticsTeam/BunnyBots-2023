@@ -76,6 +76,7 @@ object TunedConstants {
     //Flywheel
     const val flywheelS = 0.0
     const val flywheelV = 0.0
+    const val flywheelVelocitySetpoint = 0.0
 }
 
 object ConfigConstants {
@@ -101,6 +102,7 @@ object ConfigConstants {
 object ElectronicIDs {
     const val clawMotorId = 9
     const val flywheelMotorID = 4
+
     val swerveModuleData = listOf(//-68.922, (-67.6923+245.1435)x=pi
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 13, 3, 17, 5.458-PI/2, true, false), //Front Right
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 1.23-PI/2, true, false), //Back Right

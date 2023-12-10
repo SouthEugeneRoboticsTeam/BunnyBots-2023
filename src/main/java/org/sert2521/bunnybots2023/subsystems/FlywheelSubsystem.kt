@@ -8,7 +8,7 @@ import org.sert2521.bunnybots2023.ElectronicIDs
 import org.sert2521.bunnybots2023.TunedConstants
 
 object FlywheelSubsystem : SubsystemBase() {
-    val flywheelMotor = CANSparkMax(ElectronicIDs.flywheelMotorId, CANSparkMaxLowLevel.MotorType.kBrushless)
+    val flywheelMotor = CANSparkMax(ElectronicIDs.flywheelMotorID, CANSparkMaxLowLevel.MotorType.kBrushless)
 
     //this needs to be in the command
     //val feedForward = SimpleMotorFeedforward(TunedConstants.flywheelS, TunedConstants.flywheelV)
