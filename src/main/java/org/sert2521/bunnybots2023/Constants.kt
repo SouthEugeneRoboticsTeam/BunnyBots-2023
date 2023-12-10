@@ -64,6 +64,8 @@ object ConfigConstants {
     //Acceleration of drivetrain
     const val driveSpeedupChangeSpeed = 6.5
     const val driveSlowdownChangeSpeed = 36.0
+
+    const val kickTime = 20
 }
 
 object ElectronicIDs {
@@ -77,8 +79,8 @@ object ElectronicIDs {
     const val wristMotor = -1
 }
 object ElectronicIds {
-    const val BeltMotorId = -1
-    const val KickerMotorId = -1
+    const val BeltMotorId = 2
+    const val KickerMotorId = 6
 }
 
 

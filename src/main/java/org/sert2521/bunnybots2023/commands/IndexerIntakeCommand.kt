@@ -16,18 +16,15 @@ class IndexerIntakeCommand : CommandBase() {
      * The initial subroutine of a command.  Called once when the command is initially scheduled.
      */
     override fun initialize() {
-        BeltSubsystem.intakeTime = 0
-        BeltSubsystem.setKickerSpeed(-0.3)
-        BeltSubsystem.setBeltSpeed(0.3)
+        BeltSubsystem.setKickerSpeed(-0.7)
+        BeltSubsystem.setBeltSpeed(0.7)
     }
 
     /**
      * The main body of a command.  Called repeatedly while the command is scheduled.
      * (That is, it is called repeatedly until [isFinished] returns true.)
      */
-    override fun execute() {
-        BeltSubsystem.intakeTime++
-    }
+    override fun execute() {}
 
     /**
      * Returns whether this command has finished. Once a command finishes -- indicated by
@@ -42,7 +39,7 @@ class IndexerIntakeCommand : CommandBase() {
      * @return whether this command has finished.
      */
     override fun isFinished(): Boolean {
-        return BeltSubsystem.intakeTime == 20
+        return false
     }
 
     /**
@@ -53,8 +50,5 @@ class IndexerIntakeCommand : CommandBase() {
      *
      * @param interrupted whether the command was interrupted/canceled
      */
-    override fun end(interrupted: Boolean) {
-        IndexerIdleCommand()
-        BeltSubsystem.intakeTime = 0
-    }
+    override fun end(interrupted: Boolean) {}
 }

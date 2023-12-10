@@ -41,7 +41,7 @@ class IndexerIdleCommand : CommandBase() {
      * @return whether this command has finished.
      */
     override fun isFinished(): Boolean {
-        return !(BeltSubsystem.beltSpeed != 0.1 && BeltSubsystem.kickerSpeed != 0.1) // idk if this is proper
+        return false //!(BeltSubsystem.beltSpeed != 0.1 && BeltSubsystem.kickerSpeed != 0.1) // idk if this is proper
     }
 
     /**

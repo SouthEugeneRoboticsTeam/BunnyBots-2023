@@ -1,7 +1,9 @@
 package org.sert2521.bunnybots2023.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
+import org.sert2521.bunnybots2023.ConfigConstants
 import org.sert2521.bunnybots2023.subsystems.BeltSubsystem
+import java.io.ObjectInputFilter.Config
 
 class KickerKickCommand : CommandBase() {
 
@@ -23,11 +25,8 @@ class KickerKickCommand : CommandBase() {
     }
 
     override fun isFinished(): Boolean {
-        return BeltSubsystem.kickerTime == 20 // calibrate as needed I guess.
+        return BeltSubsystem.kickerTime >= ConfigConstants.kickTime // calibrate as needed I guess.
     }
 
-    override fun end(interrupted: Boolean) {
-        IndexerIdleCommand()
-        BeltSubsystem.kickerTime = 0
-    }
+    override fun end(interrupted: Boolean) {}
 }
