@@ -44,10 +44,6 @@ object Robot : TimedRobot()
 
         //println(Wrist.trueEncoder.get()*PhysicalConstants.wristEncoderMultiplier + PhysicalConstants.wristEncoderTransform)
     }
-    //0.827 -> 0.0
-    //1.081 -> PI/2
-    //0.827x + y = 0.0
-    //1.081x + y = PI/2
 
     /** This method is called once each time the robot enters Disabled mode.  */
     override fun disabledInit()

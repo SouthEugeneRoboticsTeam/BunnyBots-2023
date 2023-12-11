@@ -16,7 +16,7 @@ import com.pathplanner.lib.auto.NamedCommands
  * `const` definitions. Other constant types should use `val` definitions.
  */
 
-class SwerveModuleData(val position: Translation2d, val powerMotorID: Int, val angleMotorID: Int, val angleEncoderID: Int, val angleOffset: Double, val inverted: Boolean, val invertedRotation: Boolean)
+class SwerveModuleData(val position: Translation2d, val powerMotorID: Int, val angleMotorID: Int, val angleEncoderID: Int, val angleOffset: Double, val inverted: Boolean)
 
 object PhysicalConstants {
     //Measurement is when robot is 28 inches without bumpers
@@ -87,11 +87,11 @@ object TunedConstants {
     const val flywheelV = 0.23
     const val flywheelA = 0.84
     const val flywheelVelocitySetpoint = 80.0
+
+    const val visionP = 0.01
 }
 
 object ConfigConstants {
-
-    
 
     const val drivetrainOptimized = true
     //Controller constants
@@ -111,7 +111,7 @@ object ConfigConstants {
     const val kickTime = 5
     const val wristSlideSpeed = PI/200
 
-
+    const val visionCenter = 0.0
 }
 
 object ElectronicIDs {
@@ -119,10 +119,10 @@ object ElectronicIDs {
     const val flywheelMotorID = 4
 
     val swerveModuleData = listOf(//-68.922, (-67.6923+245.1435)x=pi
-        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 13, 3, 17, 5.458-PI/2, true, false), //Front Right
-        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 1.23-PI/2, true, false), //Back Right
-        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 12, 7, 15, 4.4785-PI/2, false, false), //Back Left
-        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 11, 8, 14, 6.29-PI/2, false, false) //Front Left
+        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 13, 3, 17, 5.458-PI/2, true), //Front Right
+        SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 1.23-PI/2, true), //Back Right
+        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 12, 7, 15, 4.4785-PI/2, false), //Back Left
+        SwerveModuleData(Translation2d(PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 11, 8, 14, 6.29-PI/2, false) //Front Left
     )
 
     const val wristMotor = 1
@@ -130,11 +130,16 @@ object ElectronicIDs {
 
     const val kickerMotorID = 6
     const val beltMotorID = 2
+
+    const val limelightID = 7
 }
 
 object RuntimeConstants {
     var wristSetPoint = PhysicalConstants.wristSetpointStow
 
+    var disableRightStick = false
+    var visionRightStick = 0.0
 }
+
 
 
