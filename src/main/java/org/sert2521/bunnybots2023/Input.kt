@@ -70,8 +70,8 @@ object Input {
         NamedCommands.registerCommand("Wrist Low", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround }))
         NamedCommands.registerCommand("Wrist Tote", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointTote }))
         NamedCommands.registerCommand("Wrist Drive", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointStow }))
-        NamedCommands.registerCommand("Intake", ClawIntake(0.8))
-        NamedCommands.registerCommand("Outtake", ClawIntake(-1.0))
+        NamedCommands.registerCommand("Intake", ClawIntake(0.8).withTimeout(3.0))
+        NamedCommands.registerCommand("Outtake", ClawIntake(-1.0).withTimeout(0.2))
 
         secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
 
