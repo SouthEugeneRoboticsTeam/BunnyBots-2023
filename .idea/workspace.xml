@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8cb1ac9c-c28b-43d7-8f23-762fc29f0ba3" name="Changes" comment="something something merge">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/BunnyBots-2023.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/FlywheelRun.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/FlywheelSubsystem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Constants.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Input.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Input.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Output.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Output.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Robot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Robot.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/IndexerIntakeCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/IndexerIntakeCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Drivetrain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Drivetrain.kt" afterDir="false" />
-    </list>
+    <list default="true" id="8cb1ac9c-c28b-43d7-8f23-762fc29f0ba3" name="Changes" comment="Whee added autos" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,16 +140,25 @@
       <option name="project" value="LOCAL" />
       <updated>1702250897561</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Whee added autos">
+      <option name="closed" value="true" />
+      <created>1702280494701</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702280494701</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Trying to fix things" />
     <MESSAGE value="Fixed a thing" />
     <MESSAGE value="something something merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="something something merge" />
+    <MESSAGE value="Whee added autos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Whee added autos" />
   </component>
   <component name="WpiLibVersionService">
-    <option name="lastChecked" value="20231210150954" />
+    <option name="lastChecked" value="20231210233654" />
   </component>
 </project>
