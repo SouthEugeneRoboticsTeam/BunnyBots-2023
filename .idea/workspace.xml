@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8cb1ac9c-c28b-43d7-8f23-762fc29f0ba3" name="Changes" comment="Whee added autos" />
+    <list default="true" id="8cb1ac9c-c28b-43d7-8f23-762fc29f0ba3" name="Changes" comment="Refactored some of the gremlin's files, the names of which I found annoying (no offense to the gremlins)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/RunRumble.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Constants.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +33,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FRC v2 Command" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -148,7 +159,23 @@
       <option name="project" value="LOCAL" />
       <updated>1702280494701</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Merged vision into main">
+      <option name="closed" value="true" />
+      <created>1702280999384</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702280999384</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Refactored some of the gremlin's files, the names of which I found annoying (no offense to the gremlins)">
+      <option name="closed" value="true" />
+      <created>1702281338931</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702281338931</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -156,7 +183,9 @@
     <MESSAGE value="Fixed a thing" />
     <MESSAGE value="something something merge" />
     <MESSAGE value="Whee added autos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Whee added autos" />
+    <MESSAGE value="Merged vision into main" />
+    <MESSAGE value="Refactored some of the gremlin's files, the names of which I found annoying (no offense to the gremlins)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored some of the gremlin's files, the names of which I found annoying (no offense to the gremlins)" />
   </component>
   <component name="WpiLibVersionService">
     <option name="lastChecked" value="20231210233654" />

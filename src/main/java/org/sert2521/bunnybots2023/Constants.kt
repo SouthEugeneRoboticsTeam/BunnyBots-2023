@@ -139,6 +139,8 @@ object RuntimeConstants {
 
     var disableRightStick = false
     var visionRightStick = 0.0
+
+    var rumbleTimer = 0
 }
 
 
