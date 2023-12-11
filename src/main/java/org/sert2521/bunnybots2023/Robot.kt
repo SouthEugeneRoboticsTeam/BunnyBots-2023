@@ -3,6 +3,7 @@ package org.sert2521.bunnybots2023
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
+import edu.wpi.first.wpilibj2.command.InstantCommand
 import org.sert2521.bunnybots2023.commands.JoystickCommand
 import org.sert2521.bunnybots2023.commands.JoystickDrive
 import org.sert2521.bunnybots2023.commands.RunWrist
@@ -58,6 +59,12 @@ object Robot : TimedRobot()
     override fun disabledPeriodic()
     {
 
+    }
+
+    override fun disabledExit() {
+        if (isAutonomous) {
+            Input.getAuto()?.andThen(InstantCommand({ Drivetrain.stop() }))?.schedule()
+        }
     }
 
     /** This autonomous runs the autonomous command selected by your [RobotContainer] class.  */

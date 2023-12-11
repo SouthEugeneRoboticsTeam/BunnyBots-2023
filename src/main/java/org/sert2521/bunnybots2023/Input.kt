@@ -11,12 +11,15 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.*
-import org.sert2521.bunnybots2023.commands.ClawIntake
-import org.sert2521.bunnybots2023.commands.IndexerIntakeCommand
-import org.sert2521.bunnybots2023.commands.IndexerReverseCommand
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
 import org.sert2521.bunnybots2023.subsystems.Wrist
 import com.pathplanner.lib.auto.AutoBuilder
+import com.pathplanner.lib.auto.NamedCommands
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig
+import com.pathplanner.lib.util.ReplanningConfig
+import org.sert2521.bunnybots2023.commands.*
+import java.io.ObjectInputFilter.Config
+import javax.naming.Name
 
 
 object Input {
@@ -24,7 +27,7 @@ object Input {
     private val gunnerController = Joystick(1)
 
     private val resetAngle = JoystickButton(driverController, 4)
-    private val secondarySpeedButton = JoystickButton(driverController, 5)
+    private val secondarySpeedButton = JoystickButton(driverController, 2)
 
     private val clawIntake = JoystickButton(gunnerController, 3)
     private val clawOuttake = JoystickButton(driverController, 6)
@@ -40,72 +43,58 @@ object Input {
     private val indexerIntake = JoystickButton(gunnerController, 8)
     private val indexerReverse = JoystickButton(gunnerController, 9)
 
+    private val visionAlignRev = JoystickButton(driverController, 1)
 
-
-    private val autoChooser = SendableChooser<() -> Command?>()
-
-
-
-
-
-
+    private val indexerKick = JoystickButton(driverController, 5)
 
 
     var secondarySpeedMode = false
 
     init {
-        /*
+
         AutoBuilder.configureHolonomic(
                 Drivetrain::getPose,
                 { Drivetrain.setNewPose(it)},
-                PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
-                PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
+                Drivetrain::getReletiveSpeeds,
                 Drivetrain::drive,
-                ConfigConstants.eventMap,
-                true,
+                HolonomicPathFollowerConfig(
+                        PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
+                        PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
+                        4.5,
+                        0.408,
+                        ReplanningConfig()
+                ),
                 Drivetrain
         )
 
-         */
-        /*
-        autoChooser.setDefaultOption("Nothing") { null }
-        for (path in ConfigConstants.paths) {
-            autoChooser.addOption(path.first) { autoBuilder.fullAuto(path.second) }
-        }
-
-         */
+        NamedCommands.registerCommand("Wrist Low", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround }))
+        NamedCommands.registerCommand("Wrist Tote", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointTote }))
+        NamedCommands.registerCommand("Wrist Drive", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointStow }))
+        NamedCommands.registerCommand("Intake", ClawIntake(0.8))
+        NamedCommands.registerCommand("Outtake", ClawIntake(-1.0))
 
         secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
-        /*
-        wristGround.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround}))
-        wristTote.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointTote}))
-        wristRest.onTrue(InstantCommand({RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointRest}))
-
-        wristUp.whileTrue(SlideWristSetpoint(-ConfigConstants.wristSlideSpeed))
-        wristDown.whileTrue(SlideWristSetpoint(ConfigConstants.wristSlideSpeed))
-
-         */
 
         clawIntake.whileTrue(ClawIntake(0.8))
         clawOuttake.whileTrue(ClawIntake(-1.0))
         resetAngle.onTrue(InstantCommand({Drivetrain.setNewPose(Pose2d())}))
-        //resetAngle.onTrue(InstantCommand({Wrist.resetEncoder()}))
 
         wristTote.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointTote }))
         wristGround.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointGround }))
         wristStow.onTrue(InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointStow }))
 
+        wristUp.whileTrue(SlideWristSetpoint(ConfigConstants.wristSlideSpeed))
+        wristDown.whileTrue(SlideWristSetpoint(-ConfigConstants.wristSlideSpeed))
+
         indexerIntake.whileTrue(IndexerIntakeCommand())
         indexerReverse.whileTrue(IndexerReverseCommand())
+        indexerKick.onTrue(KickerKickCommand())
+
+        visionAlignRev.whileTrue(FlywheelRun())
     }
 
     fun getAuto(): Command? {
-        val selected = autoChooser.selected
-        return if (selected == null) {
-            null
-        } else {
-            selected()
-        }
+        return Output.autoChooser.selected
     }
 
     fun getBrakePos(): Boolean {

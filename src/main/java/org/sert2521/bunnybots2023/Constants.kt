@@ -7,6 +7,7 @@ import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
 import kotlin.math.PI
+import com.pathplanner.lib.auto.NamedCommands
 
 /*
  * The Constants file provides a convenient place for teams to hold robot-wide
@@ -61,6 +62,14 @@ object TunedConstants {
     const val swerveAngleI = 0.0
     const val swerveAngleD = 0.0
 
+    const val swerveAutoDistanceP = 2.5
+    const val swerveAutoDistanceI = 0.0
+    const val swerveAutoDistanceD = 0.0
+
+    const val swerveAutoAngleP = 3.0
+    const val swerveAutoAngleI = 0.0
+    const val swerveAutoAngleD = 0.0
+
     const val swerveAngleS = 0.0
 
     const val wristP = 7.0
@@ -72,9 +81,17 @@ object TunedConstants {
     const val wristG = 0.35
     const val wristV = 0.0
     const val wristA = 0.0
+
+    //Flywheel
+    const val flywheelS = 0.15
+    const val flywheelV = 0.23
+    const val flywheelA = 0.84
+    const val flywheelVelocitySetpoint = 80.0
 }
 
 object ConfigConstants {
+
+    
 
     const val drivetrainOptimized = true
     //Controller constants
@@ -91,7 +108,7 @@ object ConfigConstants {
     const val driveSpeedupChangeSpeed = 30.0
     const val driveSlowdownChangeSpeed = 36.0
 
-    const val kickTime = 20
+    const val kickTime = 5
     const val wristSlideSpeed = PI/200
 
 
@@ -99,6 +116,8 @@ object ConfigConstants {
 
 object ElectronicIDs {
     const val clawMotorId = 9
+    const val flywheelMotorID = 4
+
     val swerveModuleData = listOf(//-68.922, (-67.6923+245.1435)x=pi
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, PhysicalConstants.halfSideLength), 13, 3, 17, 5.458-PI/2, true, false), //Front Right
         SwerveModuleData(Translation2d(-PhysicalConstants.halfSideLength, -PhysicalConstants.halfSideLength), 10, 5, 16, 1.23-PI/2, true, false), //Back Right

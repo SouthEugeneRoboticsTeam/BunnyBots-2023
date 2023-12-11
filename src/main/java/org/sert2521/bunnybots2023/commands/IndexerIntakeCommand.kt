@@ -16,8 +16,8 @@ class IndexerIntakeCommand : CommandBase() {
      * The initial subroutine of a command.  Called once when the command is initially scheduled.
      */
     override fun initialize() {
-        BeltSubsystem.setKickerSpeed(-0.5)
-        BeltSubsystem.setBeltSpeed(0.5)
+        BeltSubsystem.setKickerSpeed(-0.3)
+        BeltSubsystem.setBeltSpeed(0.3)
     }
 
     /**
