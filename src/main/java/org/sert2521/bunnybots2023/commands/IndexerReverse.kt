@@ -1,23 +1,23 @@
 package org.sert2521.bunnybots2023.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
-import org.sert2521.bunnybots2023.subsystems.BeltSubsystem
+import org.sert2521.bunnybots2023.subsystems.Indexer
 
-class IndexerReverseCommand : CommandBase() {
+class IndexerReverse : CommandBase() {
 
 
 
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
-        addRequirements(BeltSubsystem)
+        addRequirements(Indexer)
     }
 
     /**
      * The initial subroutine of a command.  Called once when the command is initially scheduled.
      */
     override fun initialize() {
-        BeltSubsystem.setKickerSpeed(-0.7)
-        BeltSubsystem.setBeltSpeed(-0.7)
+        Indexer.setKickerSpeed(-0.7)
+        Indexer.setBeltSpeed(-0.7)
     }
 
     /**

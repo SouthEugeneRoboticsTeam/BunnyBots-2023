@@ -1,30 +1,32 @@
 package org.sert2521.bunnybots2023.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
-import org.sert2521.bunnybots2023.subsystems.BeltSubsystem
+import org.sert2521.bunnybots2023.subsystems.Indexer
 
-class IndexerIntakeCommand : CommandBase() {
-
+class IndexerIdle : CommandBase() {
 
 
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
-        addRequirements(BeltSubsystem)
+        addRequirements(Indexer)
     }
 
     /**
      * The initial subroutine of a command.  Called once when the command is initially scheduled.
      */
     override fun initialize() {
-        BeltSubsystem.setKickerSpeed(-0.3)
-        BeltSubsystem.setBeltSpeed(0.3)
+        Indexer.setBeltSpeed(0.1)
+        Indexer.setKickerSpeed(-0.1)
     }
 
     /**
      * The main body of a command.  Called repeatedly while the command is scheduled.
      * (That is, it is called repeatedly until [isFinished] returns true.)
      */
-    override fun execute() {}
+    override fun execute() {
+        Indexer.setBeltSpeed(0.1)
+        Indexer.setKickerSpeed(-0.1)
+    }
 
     /**
      * Returns whether this command has finished. Once a command finishes -- indicated by
@@ -39,7 +41,7 @@ class IndexerIntakeCommand : CommandBase() {
      * @return whether this command has finished.
      */
     override fun isFinished(): Boolean {
-        return false
+        return false //!(BeltSubsystem.beltSpeed != 0.1 && BeltSubsystem.kickerSpeed != 0.1) // idk if this is proper
     }
 
     /**

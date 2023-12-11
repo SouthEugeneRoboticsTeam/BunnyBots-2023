@@ -1,6 +1,5 @@
 package org.sert2521.bunnybots2023
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode
 import com.pathplanner.lib.util.PIDConstants
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.Joystick
@@ -9,19 +8,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj.GenericHID
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.*
 import org.sert2521.bunnybots2023.commands.SlideWristSetpoint
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
-import org.sert2521.bunnybots2023.subsystems.Vision
-import org.sert2521.bunnybots2023.subsystems.Wrist
 import com.pathplanner.lib.auto.AutoBuilder
 import com.pathplanner.lib.auto.NamedCommands
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig
 import com.pathplanner.lib.util.ReplanningConfig
 import org.sert2521.bunnybots2023.commands.*
-import java.io.ObjectInputFilter.Config
-import javax.naming.Name
 
 
 object Input {
@@ -88,9 +82,9 @@ object Input {
         wristUp.whileTrue(SlideWristSetpoint(ConfigConstants.wristSlideSpeed))
         wristDown.whileTrue(SlideWristSetpoint(-ConfigConstants.wristSlideSpeed))
 
-        indexerIntake.whileTrue(IndexerIntakeCommand())
-        indexerReverse.whileTrue(IndexerReverseCommand())
-        indexerKick.onTrue(KickerKickCommand())
+        indexerIntake.whileTrue(IndexerIntake())
+        indexerReverse.whileTrue(IndexerReverse())
+        indexerKick.onTrue(IndexerKick())
 
         visionAlignRev.whileTrue(FlywheelRun())
     }

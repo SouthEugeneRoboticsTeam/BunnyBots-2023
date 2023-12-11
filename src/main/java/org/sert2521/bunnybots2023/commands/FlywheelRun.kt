@@ -3,10 +3,10 @@ package org.sert2521.bunnybots2023.commands
 import edu.wpi.first.math.controller.SimpleMotorFeedforward
 import edu.wpi.first.wpilibj2.command.CommandBase
 import org.sert2521.bunnybots2023.TunedConstants
-import org.sert2521.bunnybots2023.subsystems.FlywheelSubsystem
+import org.sert2521.bunnybots2023.subsystems.Flywheel
 
 class FlywheelRun : CommandBase() {
-    private val flywheelSubsystem = FlywheelSubsystem
+    private val flywheelSubsystem = Flywheel
 
 
     init {
@@ -17,7 +17,7 @@ class FlywheelRun : CommandBase() {
     override fun initialize() {}
 
     override fun execute() {
-        FlywheelSubsystem.setVoltage(feedForward.calculate(TunedConstants.flywheelVelocitySetpoint))
+        Flywheel.setVoltage(feedForward.calculate(TunedConstants.flywheelVelocitySetpoint))
     }
 
     override fun isFinished(): Boolean {
@@ -26,6 +26,6 @@ class FlywheelRun : CommandBase() {
     }
 
     override fun end(interrupted: Boolean) {
-        FlywheelSubsystem.stop()
+        Flywheel.stop()
     }
 }
