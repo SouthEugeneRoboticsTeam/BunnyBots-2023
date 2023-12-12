@@ -34,7 +34,6 @@ class SwerveModule(
     private val anglePID: PIDController,
     private val centerRotation: Rotation2d,
     private val inverted: Boolean,
-    private val invertedRotation: Boolean,
     var state: SwerveModuleState,
     shouldOptimize: Boolean,
     brakeMode: Boolean) : MotorSafety() {
@@ -109,11 +108,7 @@ class SwerveModule(
         } else {
             powerMotor.setVoltage(-(feedforward + pid) / 12.0)
         }
-        if (!invertedRotation){
-            angleMotor.setVoltage(anglePID.calculate(state.angle.radians, optimized.angle.radians))
-        } else {
-            angleMotor.setVoltage(anglePID.calculate(-state.angle.radians, -optimized.angle.radians))
-        }
+        angleMotor.setVoltage(anglePID.calculate(state.angle.radians, optimized.angle.radians))
         //angleMotor.setVoltage(anglePID.calculate(state.angle.radians, optimized.angle.radians))
         //println(angleMotor.appliedOutput)
     }
@@ -213,7 +208,6 @@ object Drivetrain : SubsystemBase() {
             PIDController(TunedConstants.swerveAngleP, TunedConstants.swerveAngleI, TunedConstants.swerveAngleD),
             Rotation2d(atan2(moduleData.position.y, moduleData.position.x)),
             moduleData.inverted,
-            moduleData.invertedRotation,
             SwerveModuleState(),
             doesOptimize,
             true

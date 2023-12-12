@@ -93,6 +93,7 @@ object Input {
         return Output.autoChooser.selected
     }
 
+
     fun getBrakePos(): Boolean {
         return driverController.xButton
     }

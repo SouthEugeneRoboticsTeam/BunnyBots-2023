@@ -48,7 +48,7 @@ class RunWrist : CommandBase() {
          */
 
         Wrist.setVoltage(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
-        println(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
+        //println(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
     }
 
     override fun isFinished(): Boolean {

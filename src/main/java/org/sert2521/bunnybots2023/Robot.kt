@@ -9,6 +9,7 @@ import org.sert2521.bunnybots2023.commands.JoystickDrive
 import org.sert2521.bunnybots2023.commands.RunWrist
 import org.sert2521.bunnybots2023.subsystems.Claw
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
+import org.sert2521.bunnybots2023.subsystems.Flywheel
 import org.sert2521.bunnybots2023.subsystems.Wrist
 
 
@@ -41,7 +42,7 @@ object Robot : TimedRobot()
         CommandScheduler.getInstance().run()
         Output.update()
         //println(RuntimeConstants.wristSetPoint)
-
+        println(Flywheel.getSpeed())
         //println(Wrist.trueEncoder.get()*PhysicalConstants.wristEncoderMultiplier + PhysicalConstants.wristEncoderTransform)
     }
 

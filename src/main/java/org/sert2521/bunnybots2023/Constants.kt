@@ -33,9 +33,9 @@ object PhysicalConstants {
     //0.085x +y = PI/2
     //-0.160x +y = 0.0
 
-    const val wristSetpointGround = 5.71-2*PI
+    const val wristSetpointGround = 5.72-2*PI
     const val wristSetpointTote = PI/7.6
-    const val wristSetpointStow = PI/1.9
+    const val wristSetpointStow = PI/2.0
 
     const val wristSetpointMin = -1000.0
     const val wristSetpointMax = 1000.0
@@ -112,6 +112,11 @@ object ConfigConstants {
     const val wristSlideSpeed = PI/200
 
     const val visionCenter = 0.0
+
+
+
+
+
 }
 
 object ElectronicIDs {

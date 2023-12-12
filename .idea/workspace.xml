@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8cb1ac9c-c28b-43d7-8f23-762fc29f0ba3" name="Changes" comment="Refactored some of the gremlin's files, the names of which I found annoying (no offense to the gremlins)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/RunRumble.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Constants.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Input.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Input.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Output.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Output.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Robot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/Robot.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/IndexerKick.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/IndexerKick.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/RunRumble.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/RunRumble.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/RunWrist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/commands/RunWrist.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Drivetrain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Drivetrain.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Flywheel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Flywheel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Indexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sert2521/bunnybots2023/subsystems/Indexer.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +73,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
 }</component>
-  <component name="RunManager" selected="Gradle.Bunnybots-2023 [deploy]">
+  <component name="RunManager" selected="Gradle.Build &amp; Deploy Robot">
     <configuration name="Bunnybots-2023 [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -120,6 +129,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Gradle.Build &amp; Deploy Robot" />
+      <item itemvalue="Gradle.Build &amp; Deploy Robot for Debugging" />
+      <item itemvalue="Gradle.Build Robot" />
+      <item itemvalue="Gradle.Bunnybots-2023 [deploy]" />
+      <item itemvalue="Gradle.Clean" />
+      <item itemvalue="Gradle.Clean Build &amp; Deploy Robot" />
+      <item itemvalue="Gradle.Clean Build &amp; Deploy Robot for Debugging" />
+      <item itemvalue="Gradle.Clean Build Robot" />
+      <item itemvalue="Gradle.Bunnybots-2023 [build]" />
+      <item itemvalue="Remote JVM Debug.Debug Robot via IP" />
+      <item itemvalue="Remote JVM Debug.Debug Robot via USB" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Bunnybots-2023 [build]" />
@@ -188,6 +210,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Refactored some of the gremlin's files, the names of which I found annoying (no offense to the gremlins)" />
   </component>
   <component name="WpiLibVersionService">
-    <option name="lastChecked" value="20231210233654" />
+    <option name="lastChecked" value="20231211193217" />
   </component>
 </project>

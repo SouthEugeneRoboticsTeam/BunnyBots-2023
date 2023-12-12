@@ -16,6 +16,10 @@ object Flywheel : SubsystemBase() {
     fun setVoltage(voltage:Double){
         flywheelMotor.setVoltage(voltage)
     }
+
+    fun getSpeed():Double{
+        return flywheelMotor.encoder.velocity
+    }
     fun stop(){
         flywheelMotor.stopMotor()
     }

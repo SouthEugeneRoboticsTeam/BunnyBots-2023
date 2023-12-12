@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax
 import com.revrobotics.CANSparkMaxLowLevel
 import org.sert2521.bunnybots2023.ElectronicIDs
+import org.sert2521.bunnybots2023.Input
+import org.sert2521.bunnybots2023.RuntimeConstants
 import org.sert2521.bunnybots2023.commands.IndexerIdle
 
 
@@ -33,6 +35,19 @@ object Indexer : SubsystemBase() {
     fun setKickerSpeed(speed: Double) {
         kickerMotor.set(speed)
         kickerSpeed = speed
+    }
+
+    override fun periodic() {
+        if (RuntimeConstants.rumbleTimer>0){
+            RuntimeConstants.rumbleTimer--
+            if (RuntimeConstants.rumbleTimer<10){
+                Input.rumble(1.0)
+            } else {
+                Input.rumble(0.0)
+            }
+        } else {
+            Input.rumble(0.0)
+        }
     }
 
 
