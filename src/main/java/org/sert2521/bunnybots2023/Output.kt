@@ -1,6 +1,5 @@
 package org.sert2521.bunnybots2023
 
-import com.pathplanner.lib.auto.AutoBuilder
 import edu.wpi.first.wpilibj.DataLogManager
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.smartdashboard.Field2d
@@ -16,10 +15,8 @@ object Output : SubsystemBase() {
  private val bools = mutableListOf<Pair<String, () -> Boolean>>()
  private val field = Field2d()
  private val visionField = Field2d()
- val autoChooser: SendableChooser<Command> = AutoBuilder.buildAutoChooser("No Wiffle Balls 1")
 
  init {
-  SmartDashboard.putData("Auto Chooser", autoChooser)
 
 
   val storageDevices = File("/media").listFiles()
@@ -47,8 +44,6 @@ object Output : SubsystemBase() {
   }
  }
 
- fun getAuto(): Command? {
-  return autoChooser.selected
- }
+
 
 }

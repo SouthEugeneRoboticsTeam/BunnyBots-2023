@@ -1,13 +1,17 @@
 package org.sert2521.bunnybots2023
 
+import com.pathplanner.lib.PathConstraints
+import com.pathplanner.lib.PathPlanner
+import com.pathplanner.lib.PathPlannerTrajectory
 import edu.wpi.first.math.MatBuilder
 import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.Nat
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
+import edu.wpi.first.wpilibj2.command.InstantCommand
+import org.sert2521.bunnybots2023.commands.ClawIntake
 import kotlin.math.PI
-import com.pathplanner.lib.auto.NamedCommands
 
 /*
  * The Constants file provides a convenient place for teams to hold robot-wide
@@ -62,7 +66,7 @@ object TunedConstants {
     const val swerveAngleI = 0.0
     const val swerveAngleD = 0.0
 
-    const val swerveAutoDistanceP = 2.5
+    const val swerveAutoDistanceP = 1.0 //2.5
     const val swerveAutoDistanceI = 0.0
     const val swerveAutoDistanceD = 0.0
 
@@ -92,6 +96,11 @@ object TunedConstants {
 }
 
 object ConfigConstants {
+    val eventMap = mapOf("Claw Intake" to ClawIntake(0.8).withTimeout(2.0),
+            "Claw Outtake" to ClawIntake(-1.0).withTimeout(1.0),
+            "Wrist Stow" to InstantCommand({RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointStow}),
+            "Wrist Tote" to InstantCommand({ RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointGround }),
+            )
 
     const val drivetrainOptimized = true
     //Controller constants
@@ -113,9 +122,23 @@ object ConfigConstants {
 
     const val visionCenter = 0.0
 
+    private val autoConstraints = PathConstraints(0.3, 1.7)
 
+    private val pathsData = arrayOf(
+            Pair("No Wiffle Balls 1", autoConstraints),
+    )
 
+    val paths: Array<Pair<String, List<PathPlannerTrajectory>>>
 
+    init {
+        val pathsList = mutableListOf<Pair<String, List<PathPlannerTrajectory>>>()
+
+        for (data in pathsData) {
+            pathsList.add(Pair(data.first, PathPlanner.loadPathGroup(data.first, data.second)))
+        }
+
+        paths = pathsList.toTypedArray()
+    }
 
 }
 

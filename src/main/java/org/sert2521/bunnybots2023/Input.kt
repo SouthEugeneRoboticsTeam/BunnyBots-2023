@@ -1,6 +1,7 @@
 package org.sert2521.bunnybots2023
 
-import com.pathplanner.lib.util.PIDConstants
+import com.pathplanner.lib.auto.PIDConstants
+import com.pathplanner.lib.auto.SwerveAutoBuilder
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
@@ -8,13 +9,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj.GenericHID
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import edu.wpi.first.wpilibj2.command.*
 import org.sert2521.bunnybots2023.commands.SlideWristSetpoint
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
-import com.pathplanner.lib.auto.AutoBuilder
-import com.pathplanner.lib.auto.NamedCommands
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig
-import com.pathplanner.lib.util.ReplanningConfig
 import org.sert2521.bunnybots2023.commands.*
 
 
@@ -46,28 +45,23 @@ object Input {
 
     var secondarySpeedMode = false
 
+    private val autoChooser = SendableChooser<() -> Command?>()
+    private val autoBuilder = SwerveAutoBuilder(
+            Drivetrain::getPose,
+            { Drivetrain.setNewPose(it) },
+            PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
+            PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
+            Drivetrain::drive,
+            ConfigConstants.eventMap,
+            false,
+            Drivetrain
+    )
     init {
 
-        AutoBuilder.configureHolonomic(
-                Drivetrain::getPose,
-                { Drivetrain.setNewPose(it)},
-                Drivetrain::getReletiveSpeeds,
-                Drivetrain::drive,
-                HolonomicPathFollowerConfig(
-                        PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
-                        PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
-                        4.5,
-                        0.408,
-                        ReplanningConfig()
-                ),
-                Drivetrain
-        )
-
-        NamedCommands.registerCommand("Wrist Low", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointGround }))
-        NamedCommands.registerCommand("Wrist Tote", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointTote }))
-        NamedCommands.registerCommand("Wrist Drive", InstantCommand({ RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointStow }))
-        NamedCommands.registerCommand("Intake", ClawIntake(0.8).withTimeout(3.0))
-        NamedCommands.registerCommand("Outtake", ClawIntake(-1.0).withTimeout(0.2))
+        autoChooser.setDefaultOption("Nothing") { null }
+        for (path in ConfigConstants.paths) {
+            autoChooser.addOption(path.first) { autoBuilder.fullAuto(path.second) }
+        }
 
         secondarySpeedButton.onTrue(InstantCommand({ secondarySpeedMode = !secondarySpeedMode }))
 
@@ -87,12 +81,22 @@ object Input {
         indexerKick.onTrue(IndexerKick())
 
         visionAlignRev.whileTrue(FlywheelRun())
+
+
+
+
+        SmartDashboard.putData("Auto Chooser", autoChooser)
     }
+
 
     fun getAuto(): Command? {
-        return Output.autoChooser.selected
+        val selected = autoChooser.selected
+        return if (selected == null) {
+            null
+        } else {
+            selected()
+        }
     }
-
 
     fun getBrakePos(): Boolean {
         return driverController.xButton
