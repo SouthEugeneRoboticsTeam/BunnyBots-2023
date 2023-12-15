@@ -3,18 +3,26 @@ package org.sert2521.bunnybots2023
 import com.pathplanner.lib.auto.PIDConstants
 import com.pathplanner.lib.auto.SwerveAutoBuilder
 import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.DriverStation.Alliance
 import edu.wpi.first.wpilibj.GenericHID
+import edu.wpi.first.wpilibj.event.EventLoop
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import edu.wpi.first.wpilibj2.command.*
+import edu.wpi.first.wpilibj2.command.button.Trigger
 import org.sert2521.bunnybots2023.commands.SlideWristSetpoint
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
 import org.sert2521.bunnybots2023.commands.*
+import org.sert2521.bunnybots2023.subsystems.Flywheel
+import org.sert2521.bunnybots2023.subsystems.Vision
+import java.util.function.BooleanSupplier
+import java.util.function.Supplier
+import kotlin.math.PI
 
 
 object Input {
@@ -32,23 +40,29 @@ object Input {
     private val wristTote = JoystickButton(gunnerController, 6)
     private val wristStow = JoystickButton(gunnerController, 7)
 
-    private val wristUp = JoystickButton(gunnerController, 17)
-    private val wristDown = JoystickButton(gunnerController, 19)
+    private val wristUp = Trigger({ gunnerController.pov == 0})
+    private val wristDown = Trigger({ gunnerController.pov == 180})
 
     private val indexerIntake = JoystickButton(gunnerController, 8)
     private val indexerReverse = JoystickButton(gunnerController, 9)
 
-    private val visionAlignRev = JoystickButton(driverController, 1)
+    val visionAlignRev = JoystickButton(driverController, 1)
+    val visionRenew = JoystickButton(driverController, 3)
 
     private val indexerKick = JoystickButton(driverController, 5)
 
+    val flywheel = JoystickButton(driverController, 8)
+
+
+    //fun flywheelBool():Boolean = driverController.rightTriggerAxis>=0.2
+    //val flywheelButton = Trigger(BooleanSupplier(driverController::getRightTriggerAxis))
 
     var secondarySpeedMode = false
 
     private val autoChooser = SendableChooser<() -> Command?>()
     private val autoBuilder = SwerveAutoBuilder(
             Drivetrain::getPose,
-            { Drivetrain.setNewPose(it) },
+            { Drivetrain.setNewPose(Pose2d(0.0, 0.0, Rotation2d(PI/2)))},
             PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
             PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
             Drivetrain::drive,
@@ -80,8 +94,15 @@ object Input {
         indexerReverse.whileTrue(IndexerReverse())
         indexerKick.onTrue(IndexerKick())
 
-        visionAlignRev.whileTrue(FlywheelRun())
+        //visionAlignRev.whileTrue(FlywheelRun())
+        visionAlignRev.whileTrue(VisionLock())
+        visionAlignRev.onTrue(InstantCommand({Vision.switchLights(true)}))
 
+        visionRenew.onTrue(VisionLock())
+
+        flywheel.whileTrue(FlywheelRun())
+
+        //visionAlignRev.onFalse(InstantCommand({Vision.switchLights(false)}))
 
 
 

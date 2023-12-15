@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.sert2521.bunnybots2023.ElectronicIDs
 import org.sert2521.bunnybots2023.commands.RunWrist
+import java.beans.Encoder
 
 object Wrist : SubsystemBase() {
  val motor = CANSparkMax(ElectronicIDs.wristMotor, CANSparkMaxLowLevel.MotorType.kBrushless)

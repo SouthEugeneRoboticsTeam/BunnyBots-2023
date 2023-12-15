@@ -36,9 +36,9 @@ class RunWrist : CommandBase() {
         trueEncoder = Wrist.getEncoder()
         var wristAngle = (trueEncoder)*PhysicalConstants.wristEncoderMultiplier+PhysicalConstants.wristEncoderTransform
 
-        if (wristAngle>=PI){
-            wristAngle -= 2*PI
-        }
+        //if (wristAngle>=PI){
+            //wristAngle -= 2*PI
+        //}
         /*
         if (RuntimeConstants.wristSetPoint <= PhysicalConstants.wristSetpointMin){
             RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMin
@@ -48,7 +48,7 @@ class RunWrist : CommandBase() {
          */
 
         Wrist.setVoltage(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
-        //println(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
+        println(wristAngle)
     }
 
     override fun isFinished(): Boolean {

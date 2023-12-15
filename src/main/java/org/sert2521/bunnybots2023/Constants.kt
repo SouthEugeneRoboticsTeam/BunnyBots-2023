@@ -31,15 +31,15 @@ object PhysicalConstants {
     const val powerEncoderMultiplierVelocity = powerEncoderMultiplierPosition / 60.0
     const val angleEncoderMultiplier = 0.01770398088
 
-    const val wristEncoderMultiplier = 6.411
-    const val wristEncoderTransform = 1.026
+    const val wristEncoderMultiplier = 6.54321
+    const val wristEncoderTransform = -4.03
 
     //0.085x +y = PI/2
     //-0.160x +y = 0.0
 
-    const val wristSetpointGround = 5.72-2*PI
-    const val wristSetpointTote = PI/7.6
-    const val wristSetpointStow = PI/2.0
+    const val wristSetpointGround = -0.673
+    const val wristSetpointTote = 0.303
+    const val wristSetpointStow = 1.67
 
     const val wristSetpointMin = -1000.0
     const val wristSetpointMax = 1000.0
@@ -66,11 +66,11 @@ object TunedConstants {
     const val swerveAngleI = 0.0
     const val swerveAngleD = 0.0
 
-    const val swerveAutoDistanceP = 1.0 //2.5
+    const val swerveAutoDistanceP = 0.0 //2.5
     const val swerveAutoDistanceI = 0.0
     const val swerveAutoDistanceD = 0.0
 
-    const val swerveAutoAngleP = 3.0
+    const val swerveAutoAngleP = 0.0
     const val swerveAutoAngleI = 0.0
     const val swerveAutoAngleD = 0.0
 
@@ -90,9 +90,13 @@ object TunedConstants {
     const val flywheelS = 0.15
     const val flywheelV = 0.23
     const val flywheelA = 0.84
-    const val flywheelVelocitySetpoint = 80.0
 
-    const val visionP = 0.01
+    const val flywheelVelocitySetpoint = 150.0
+    const val flywheelIdle = 0.0
+
+    const val visionP = 0.05
+    const val visionI = 0.0
+    const val visionD = 0.01
 }
 
 object ConfigConstants {
@@ -103,12 +107,12 @@ object ConfigConstants {
             )
 
     const val drivetrainOptimized = true
-    //Controller constants
+    //ControlledriverController.rightTriggerAxis>=0.r constants
     const val powerDeadband = 0.075
     const val rotDeadband = 0.075
 
     //Drive speed constants
-    const val driveSpeed = 7.0
+    const val driveSpeed = 12.0
     const val driveSecondarySpeed = 2.75
     const val rotSpeed = 10.0
     const val rotSecondarySpeed = 2.75
@@ -120,7 +124,8 @@ object ConfigConstants {
     const val kickTime = 5
     const val wristSlideSpeed = PI/200
 
-    const val visionCenter = 0.0
+    const val visionSusness = 0.0
+    const val visionSusnessFactor = 0.0
 
     private val autoConstraints = PathConstraints(0.3, 1.7)
 

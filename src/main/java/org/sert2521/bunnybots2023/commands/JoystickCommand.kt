@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj2.command.CommandBase
 import org.sert2521.bunnybots2023.ConfigConstants
 import org.sert2521.bunnybots2023.Input
+import org.sert2521.bunnybots2023.RuntimeConstants
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sign
@@ -32,6 +33,7 @@ abstract class JoystickCommand : CommandBase() {
 
         //A variable meaning how close to the secondary speed it should get (as a trigger input)
         val secondaryMultiplyer = Input.getSecondarySpeed()
+
         var currX = (Input.getX()).pow(2) * Input.getX().sign
         var currY = (Input.getY()).pow(2) * Input.getY().sign
 
@@ -80,13 +82,16 @@ abstract class JoystickCommand : CommandBase() {
                 y += normalizedChangeY * maxChange
             }
         }
-
         var rot = Input.getRot()
+
         if (abs(rot) <= ConfigConstants.rotDeadband) {
             rot = 0.0
         }
         rot *= (ConfigConstants.rotSpeed - (ConfigConstants.rotSecondarySpeed * secondaryMultiplyer))
 
+        if (RuntimeConstants.disableRightStick){
+            rot = RuntimeConstants.visionRightStick
+        }
         return Translation3d(x, y, rot)
     }
 }

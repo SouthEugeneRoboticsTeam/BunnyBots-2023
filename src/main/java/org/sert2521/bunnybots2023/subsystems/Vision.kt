@@ -9,8 +9,9 @@ import org.sert2521.bunnybots2023.ElectronicIDs
 
 object Vision : SubsystemBase() {
     //Maddie said to call it Fredrick
-    val cam = PhotonCamera("Fredrick")
+    val cam = PhotonCamera("Skynet")
     var result:PhotonPipelineResult = cam.latestResult
+
 
     val lights = DigitalOutput(ElectronicIDs.limelightID)
 
@@ -47,25 +48,8 @@ object Vision : SubsystemBase() {
         return bestTarget != null
     }
 
-    fun getBestTarget():PhotonTrackedTarget{
-        return bestTarget!!
-    }
-
-    fun visionCenterX():Double{
-        var minX:Double? = null
-        var maxX:Double? = null
-
-        for(corner in bestTarget!!.detectedCorners){
-            if (minX == null || maxX == null){
-                minX = corner.x
-                maxX = corner.x
-            } else if (corner.x <= minX){
-                minX = corner.x
-            } else if (corner.x >= maxX) {
-                maxX = corner.x
-            }
-        }
-        return (minX!!+maxX!!)/2.0
+    fun getBestTarget():PhotonTrackedTarget?{
+        return bestTarget
     }
 
     fun getYaw():Double{

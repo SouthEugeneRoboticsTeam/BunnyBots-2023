@@ -1,13 +1,12 @@
 package org.sert2521.bunnybots2023
 
 import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.math.kinematics.ChassisSpeeds
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj2.command.InstantCommand
-import org.sert2521.bunnybots2023.commands.JoystickCommand
-import org.sert2521.bunnybots2023.commands.JoystickDrive
-import org.sert2521.bunnybots2023.commands.RunWrist
+import org.sert2521.bunnybots2023.commands.*
 import org.sert2521.bunnybots2023.subsystems.Claw
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
 import org.sert2521.bunnybots2023.subsystems.Flywheel
@@ -26,6 +25,7 @@ import org.sert2521.bunnybots2023.subsystems.Wrist
  */
 object Robot : TimedRobot()
 {
+    var flywheelCommand = FlywheelRun()
     init {
         Input
         Drivetrain
@@ -43,8 +43,18 @@ object Robot : TimedRobot()
         CommandScheduler.getInstance().run()
         Output.update()
         //println(RuntimeConstants.wristSetPoint)
-        println(Flywheel.getSpeed())
-        //println(Wrist.trueEncoder.get()*PhysicalConstants.wristEncoderMultiplier + PhysicalConstants.wristEncoderTransform)
+        /*
+        if (Input.flywheelButton){
+            flywheelCommand.schedule()
+        } else {
+            flywheelCommand.cancel()
+        }
+
+         */
+        //0.5062x + y = -0.718
+        //0.856x + y = PI/2
+        println(Wrist.trueEncoder.get())
+        println(Wrist.trueEncoder.get()*PhysicalConstants.wristEncoderMultiplier+PhysicalConstants.wristEncoderTransform)
     }
 
     /** This method is called once each time the robot enters Disabled mode.  */
@@ -60,10 +70,10 @@ object Robot : TimedRobot()
     }
 
     override fun disabledExit() {
-        Drivetrain.setNewPose(Pose2d())
         if (isAutonomous) {
-            Input.getAuto()?.andThen(InstantCommand({ Drivetrain.stop() }))?.schedule()
+            AutoTest().schedule()
         }
+        RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointStow
     }
 
     /** This autonomous runs the autonomous command selected by your [RobotContainer] class.  */

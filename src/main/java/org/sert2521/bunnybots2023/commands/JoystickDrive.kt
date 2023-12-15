@@ -21,14 +21,10 @@ class JoystickDrive(private val fieldOrientated: Boolean) : JoystickCommand() {
                 Drivetrain.stop()
             }
         } else {
-            if (fieldOrientated && !RuntimeConstants.disableRightStick) {
+            if (fieldOrientated) {
                 Drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(joystickData.x, joystickData.y, joystickData.z, Drivetrain.getPose().rotation))
-            } else if (!fieldOrientated && !RuntimeConstants.disableRightStick) {
-                Drivetrain.drive(ChassisSpeeds(joystickData.x, joystickData.y, joystickData.z))
-            }else if (fieldOrientated) {
-                Drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(joystickData.x, joystickData.y, RuntimeConstants.visionRightStick, Drivetrain.getPose().rotation))
             } else {
-                Drivetrain.drive(ChassisSpeeds(joystickData.x, joystickData.y, RuntimeConstants.visionRightStick))
+                Drivetrain.drive(ChassisSpeeds(joystickData.x, joystickData.y, joystickData.z))
             }
         }
     }
