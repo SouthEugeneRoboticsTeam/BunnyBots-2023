@@ -24,7 +24,7 @@ class RunWrist : CommandBase() {
     private val feedforward = ArmFeedforward(TunedConstants.wristS, TunedConstants.wristG,
         TunedConstants.wristV, TunedConstants.wristA
     )
-    private var trueEncoder = Wrist.getEncoder()
+    private var wristAngle = Wrist.getRadians()
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
         addRequirements(Wrist)
@@ -33,12 +33,8 @@ class RunWrist : CommandBase() {
     override fun initialize() {}
 
     override fun execute() {
-        trueEncoder = Wrist.getEncoder()
-        var wristAngle = (trueEncoder)*PhysicalConstants.wristEncoderMultiplier+PhysicalConstants.wristEncoderTransform
+        wristAngle = Wrist.getRadians()
 
-        //if (wristAngle>=PI){
-            //wristAngle -= 2*PI
-        //}
         /*
         if (RuntimeConstants.wristSetPoint <= PhysicalConstants.wristSetpointMin){
             RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMin

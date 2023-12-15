@@ -53,8 +53,8 @@ object Robot : TimedRobot()
          */
         //0.5062x + y = -0.718
         //0.856x + y = PI/2
-        println(Wrist.trueEncoder.get())
-        println(Wrist.trueEncoder.get()*PhysicalConstants.wristEncoderMultiplier+PhysicalConstants.wristEncoderTransform)
+        //println(Wrist.trueEncoder.get())
+        println(Wrist.getRadians())
     }
 
     /** This method is called once each time the robot enters Disabled mode.  */

@@ -5,8 +5,10 @@ import com.revrobotics.CANSparkMaxLowLevel
 import edu.wpi.first.wpilibj.DutyCycleEncoder
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.sert2521.bunnybots2023.ElectronicIDs
+import org.sert2521.bunnybots2023.PhysicalConstants
 import org.sert2521.bunnybots2023.commands.RunWrist
 import java.beans.Encoder
+import kotlin.math.PI
 
 object Wrist : SubsystemBase() {
  val motor = CANSparkMax(ElectronicIDs.wristMotor, CANSparkMaxLowLevel.MotorType.kBrushless)
@@ -30,6 +32,16 @@ object Wrist : SubsystemBase() {
 
  fun getEncoder():Double{
   return trueEncoder.get()
+ }
+
+ fun getRadians():Double{
+  var wristAngle = (trueEncoder.get())* PhysicalConstants.wristEncoderMultiplier+ PhysicalConstants.wristEncoderTransform
+
+  if (wristAngle<-PI){
+   wristAngle += 2* PI
+  }
+
+  return wristAngle
  }
 
  fun resetEncoder(){
