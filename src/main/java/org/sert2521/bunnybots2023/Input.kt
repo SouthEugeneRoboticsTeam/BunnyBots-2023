@@ -62,7 +62,7 @@ object Input {
     private val autoChooser = SendableChooser<() -> Command?>()
     private val autoBuilder = SwerveAutoBuilder(
             Drivetrain::getPose,
-            { Drivetrain.setNewPose(Pose2d(0.0, 0.0, Rotation2d(PI/2)))},
+            { Drivetrain.setNewPose(Pose2d())},
             PIDConstants(TunedConstants.swerveAutoDistanceP, TunedConstants.swerveAutoDistanceI, TunedConstants.swerveAutoDistanceD),
             PIDConstants(TunedConstants.swerveAutoAngleP, TunedConstants.swerveAutoAngleI, TunedConstants.swerveAutoAngleD),
             Drivetrain::drive,
@@ -94,15 +94,14 @@ object Input {
         indexerReverse.whileTrue(IndexerReverse())
         indexerKick.onTrue(IndexerKick())
 
-        //visionAlignRev.whileTrue(FlywheelRun())
-        visionAlignRev.whileTrue(VisionLock())
+        visionAlignRev.whileTrue(FlywheelRun().alongWith(VisionLock()))
         visionAlignRev.onTrue(InstantCommand({Vision.switchLights(true)}))
 
-        visionRenew.onTrue(VisionLock())
+        //visionRenew.onTrue(VisionLock())
 
         flywheel.whileTrue(FlywheelRun())
 
-        //visionAlignRev.onFalse(InstantCommand({Vision.switchLights(false)}))
+        visionAlignRev.onFalse(InstantCommand({Vision.switchLights(false)}))
 
 
 
@@ -115,6 +114,7 @@ object Input {
         return if (selected == null) {
             null
         } else {
+            //AutoTest()
             selected()
         }
     }

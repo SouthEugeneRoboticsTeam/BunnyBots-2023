@@ -66,7 +66,7 @@ object TunedConstants {
     const val swerveAngleI = 0.0
     const val swerveAngleD = 0.0
 
-    const val swerveAutoDistanceP = 0.0 //2.5
+    const val swerveAutoDistanceP = 1.0 //2.5
     const val swerveAutoDistanceI = 0.0
     const val swerveAutoDistanceD = 0.0
 
@@ -94,9 +94,9 @@ object TunedConstants {
     const val flywheelVelocitySetpoint = 150.0
     const val flywheelIdle = 0.0
 
-    const val visionP = 0.05
+    const val visionP = 0.02
     const val visionI = 0.0
-    const val visionD = 0.01
+    const val visionD = 0.002
 }
 
 object ConfigConstants {
@@ -159,7 +159,7 @@ object ElectronicIDs {
     )
 
     const val wristMotor = 1
-    const val wristTrueEncoder = 8
+    const val wristTrueEncoder = 5
 
     const val kickerMotorID = 6
     const val beltMotorID = 2

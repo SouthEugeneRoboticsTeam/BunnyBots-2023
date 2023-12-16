@@ -10,6 +10,8 @@ import org.sert2521.bunnybots2023.TunedConstants
 import org.sert2521.bunnybots2023.subsystems.Vision
 import kotlin.math.abs
 import kotlin.math.absoluteValue
+import kotlin.math.pow
+import kotlin.math.sign
 
 class VisionLock : CommandBase() {
 
@@ -33,7 +35,7 @@ class VisionLock : CommandBase() {
 
         if (Vision.hasTarget()){
             if (Vision.getYaw().absoluteValue >= ConfigConstants.visionSusness){
-                RuntimeConstants.visionRightStick = visionPID.calculate(Vision.getYaw())
+                RuntimeConstants.visionRightStick = visionPID.calculate(Vision.getYaw().pow(2)*Vision.getYaw().sign)
             } else {
                 RuntimeConstants.visionRightStick = 0.0
             }
@@ -50,7 +52,7 @@ class VisionLock : CommandBase() {
 
     override fun isFinished(): Boolean {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return visionLostTargetCycles >= 10 || !(Input.visionAlignRev.asBoolean || Input.visionRenew.asBoolean)
+        return false//!(Input.visionAlignRev.asBoolean || Input.visionRenew.asBoolean)
     }
 
     override fun end(interrupted: Boolean) {

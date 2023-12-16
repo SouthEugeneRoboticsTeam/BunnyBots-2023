@@ -54,7 +54,6 @@ object Robot : TimedRobot()
         //0.5062x + y = -0.718
         //0.856x + y = PI/2
         //println(Wrist.trueEncoder.get())
-        println(Wrist.getRadians())
     }
 
     /** This method is called once each time the robot enters Disabled mode.  */
@@ -71,7 +70,8 @@ object Robot : TimedRobot()
 
     override fun disabledExit() {
         if (isAutonomous) {
-            AutoTest().schedule()
+            Input.getAuto()?.andThen(InstantCommand({ Drivetrain.stop() }))?.schedule()
+            //AutoTest().schedule()
         }
         RuntimeConstants.wristSetPoint=PhysicalConstants.wristSetpointStow
     }
@@ -81,7 +81,8 @@ object Robot : TimedRobot()
     {
         // We store the command as a Robot property in the rare event that the selector on the dashboard
         // is modified while the command is running since we need to access it again in teleopInit()
-
+        Drivetrain.defaultCommand.cancel()
+        Drivetrain.removeDefaultCommand()
     }
 
     /** This method is called periodically during autonomous.  */
@@ -90,6 +91,7 @@ object Robot : TimedRobot()
     }
 
     override fun teleopInit(){
+        Drivetrain.defaultCommand = JoystickDrive(true)
         Claw.breakingMode(false)
     }
 

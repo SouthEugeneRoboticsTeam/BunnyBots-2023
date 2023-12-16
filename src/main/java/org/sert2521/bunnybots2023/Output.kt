@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import org.sert2521.bunnybots2023.subsystems.Drivetrain
 import org.sert2521.bunnybots2023.subsystems.Vision
+import org.sert2521.bunnybots2023.subsystems.Wrist
 import java.io.File
 
 object Output : SubsystemBase() {
@@ -30,6 +31,8 @@ object Output : SubsystemBase() {
    }
   }
   update()
+  values.add(Pair("Wrist Radians") { Wrist.getRadians() })
+  values.add(Pair("Wrist Encoder") { Wrist.getEncoder() })
  }
 
  fun update(){
