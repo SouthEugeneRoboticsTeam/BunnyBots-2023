@@ -43,6 +43,8 @@ object Input {
     private val wristUp = Trigger({ gunnerController.pov == 0})
     private val wristDown = Trigger({ gunnerController.pov == 180})
 
+    private val flywheelButton = Trigger({ driverController.rightTriggerAxis >= 0.2})
+
     private val indexerIntake = JoystickButton(gunnerController, 8)
     private val indexerReverse = JoystickButton(gunnerController, 9)
 
@@ -99,10 +101,11 @@ object Input {
 
         //visionRenew.onTrue(VisionLock())
 
-        flywheel.whileTrue(FlywheelRun())
+        flywheel.whileTrue(InstantCommand({Vision.switchLights(true)}))
 
         visionAlignRev.onFalse(InstantCommand({Vision.switchLights(false)}))
 
+        flywheelButton.whileTrue(FlywheelRun())
 
 
         SmartDashboard.putData("Auto Chooser", autoChooser)
