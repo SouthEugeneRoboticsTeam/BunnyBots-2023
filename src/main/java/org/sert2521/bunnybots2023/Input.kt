@@ -53,6 +53,8 @@ object Input {
 
     val flywheel = JoystickButton(driverController, 8)
 
+    var flywheelButton = Trigger({ driverController.rightTriggerAxis >= 0.2} )
+
 
     //fun flywheelBool():Boolean = driverController.rightTriggerAxis>=0.2
     //val flywheelButton = Trigger(BooleanSupplier(driverController::getRightTriggerAxis))
@@ -99,7 +101,9 @@ object Input {
 
         //visionRenew.onTrue(VisionLock())
 
-        flywheel.whileTrue(FlywheelRun())
+        flywheel.whileTrue(InstantCommand({Vision.switchLights(true)}))
+
+        flywheelButton.whileTrue(FlywheelRun())
 
         visionAlignRev.onFalse(InstantCommand({Vision.switchLights(false)}))
 
@@ -114,8 +118,8 @@ object Input {
         return if (selected == null) {
             null
         } else {
-            //AutoTest()
-            selected()
+            AutoTest()
+            //selected()
         }
     }
 

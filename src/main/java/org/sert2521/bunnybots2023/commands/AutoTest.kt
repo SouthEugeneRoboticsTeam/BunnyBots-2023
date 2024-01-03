@@ -25,7 +25,7 @@ class AutoTest : CommandBase() {
 
     override fun isFinished(): Boolean {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return Timer.getFPGATimestamp() > time + 5
+        return Timer.getFPGATimestamp() > time + 3.0
     }
 
     override fun end(interrupted: Boolean) {}

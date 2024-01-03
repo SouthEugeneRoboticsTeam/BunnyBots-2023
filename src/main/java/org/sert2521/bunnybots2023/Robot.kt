@@ -2,6 +2,7 @@ package org.sert2521.bunnybots2023
 
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.kinematics.ChassisSpeeds
+import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.CommandScheduler
@@ -91,7 +92,9 @@ object Robot : TimedRobot()
     }
 
     override fun teleopInit(){
+
         Drivetrain.defaultCommand = JoystickDrive(true)
+        JoystickDrive(true).schedule()
         Claw.breakingMode(false)
     }
 
