@@ -20,10 +20,7 @@ import kotlin.math.sign
 
 class RunWrist : CommandBase() {
 
-    private val motorPID = PIDController(TunedConstants.wristP, TunedConstants.wristI, TunedConstants.wristD)
-    private val feedforward = ArmFeedforward(TunedConstants.wristS, TunedConstants.wristG,
-        TunedConstants.wristV, TunedConstants.wristA
-    )
+
     private var wristAngle = Wrist.getRadians()
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
@@ -35,16 +32,7 @@ class RunWrist : CommandBase() {
     override fun execute() {
         wristAngle = Wrist.getRadians()
 
-        /*
-        if (RuntimeConstants.wristSetPoint <= PhysicalConstants.wristSetpointMin){
-            RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMin
-        } else if (RuntimeConstants.wristSetPoint >= PhysicalConstants.wristSetpointMax){
-            RuntimeConstants.wristSetPoint = PhysicalConstants.wristSetpointMax
-        }
-         */
 
-        Wrist.setVoltage(motorPID.calculate(wristAngle, RuntimeConstants.wristSetPoint)+feedforward.calculate(wristAngle, 0.0))
-        //println(wristAngle)
     }
 
     override fun isFinished(): Boolean {
