@@ -22,6 +22,7 @@ class RunWrist : CommandBase() {
 
 
     private var wristAngle = Wrist.getRadians()
+    private var feedForward = ArmFeedforward(TunedConstants.wristS, TunedConstants.wristG, TunedConstants.wristV, TunedConstants.wristA)
     init {
         // each subsystem used by the command must be passed into the addRequirements() method
         addRequirements(Wrist)
@@ -31,8 +32,7 @@ class RunWrist : CommandBase() {
 
     override fun execute() {
         wristAngle = Wrist.getRadians()
-
-
+        Wrist.setVoltage(feedForward.calculate(wristAngle, 0.0))
     }
 
     override fun isFinished(): Boolean {
